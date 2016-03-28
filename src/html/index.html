@@ -34,8 +34,11 @@
             for (var device in devices) {
               innerHTMLForDevices += "<li onclick=\"activateDevice(this.innerHTML)\"><a href=\"#\">" + devices[device] + "</a></li>";
             }
-            document.getElementById('dropdownDevices').innerHTML = innerHTMLForDevices;
+          } else {
+            console.log("null");
+            innerHTMLForDevices = '';
           }
+          document.getElementById('dropdownDevices').innerHTML = innerHTMLForDevices;
         });
       });
     </script>

@@ -14,10 +14,12 @@ ADBWrapper.prototype.getDevices = function (callback) {
           devices.push(device);
         }
       }
-      callback(devices);
     }
-    callback(null);
-
+    if (devices.length >= 1) {
+      callback(devices);
+    } else {
+      callback(null);
+    }
   });
 }
 
