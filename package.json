@@ -1,0 +1,10 @@
+{
+  "name": "AdbTool",
+  "description": "",
+  "author": {
+    "name": "Hakjoon Sim"
+  },
+  "license": "MIT",
+  "version": "0.0.1",
+  "main": "src/main.js"
+}

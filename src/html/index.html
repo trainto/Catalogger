@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <title></title>
+  </head>
+  <body>
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownDevicesBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Devices
+      <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" id="dropdownDevices" aria-labelledby="dropdownMenu1">
+      </ul>
+    </div>
+
+    <hr>
+
+    <script>
+      'use strict';
+      function activateDevice(device) {
+        console.log("activate " + device);
+      }
+      var ADBWrapper = require('../adbwrapper');
+      var adbWrapper = new ADBWrapper();
+      document.getElementById('dropdownDevicesBtn').addEventListener("click", function () {
+        adbWrapper.getDevices(function (devices) {
+          if (devices) {
+            var innerHTMLForDevices = '';
+            for (var device in devices) {
+              innerHTMLForDevices += "<li onclick=\"activateDevice(this.innerHTML)\"><a href=\"#\">" + devices[device] + "</a></li>";
+            }
+            document.getElementById('dropdownDevices').innerHTML = innerHTMLForDevices;
+          }
+        });
+      });
+    </script>
+    <!-- For debugging in browser -->
+    <script src="../vendor/jquery-1.12.2.min.js"></script>
+    <script>
+      var jQuery = require('../vendor/jquery-1.12.2.min.js');
+    </script>
+    <script src="../vendor/bootstrap.min.js"></script>
+  </body>
+</html>
