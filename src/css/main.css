@@ -1,8 +1,66 @@
+html {
+  width: 100%;
+  height: 100%;
+}
+
 body {
+  width: 100%;
+  height: 100%;
   padding: 5px;
+  overflow: hidden;
+}
+
+.row {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.main-container {
+  height: 100%;
+}
+
+.main-content {
+  height: 100%;
 }
 
 hr {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+
+.gutter.gutter-horizontal {
+  background-image: url('https://raw.githubusercontent.com/nathancahill/Split.js/master/grips/vertical.png');
+  cursor: ew-resize;
+}
+
+.split {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .gutter {
+    background-color: #eee;
+
+    background-repeat: no-repeat;
+    background-position: 50%;
+  }
+
+  .gutter.gutter-horizontal {
+    background-image: url('https://raw.githubusercontent.com/nathancahill/Split.js/master/grips/vertical.png');
+    cursor: ew-resize;
+  }
+
+  .gutter.gutter-vertical {
+    background-image: url('https://raw.githubusercontent.com/nathancahill/Split.js/master/grips/horizontal.png');
+    cursor: ns-resize;
+  }
+
+  .split.split-horizontal, .gutter.gutter-horizontal {
+    height: 100%;
+    float: left;
+  }
