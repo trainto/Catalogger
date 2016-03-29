@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../vendor/bootstrap.min.css">
     <link rel="stylesheet" href="../css/main.css">
-    <title></title>
+
+    <script src="../vendor/jquery-1.12.2.min.js"></script>
+    <script>
+      window.$ = window.jQuery = require('../vendor/jquery-1.12.2.min.js');
+    </script>
+    <script src="../vendor/colResizable-1.5.min.js"></script>
+    <title>YourADBTool</title>
   </head>
   <body>
     <div class="row">
@@ -22,125 +28,204 @@
 
     <hr>
     <div class="row main-content">
-      <div id="one" class="split split-horizontal">
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
-        <p>hehell</p>
+      <!-- <div id="one" class="split split-horizontal">
       </div>
       <div id="two" class="split split-horizontal">
-        haha
-      </div>
+      </div> -->
+      <!-- <table id="logContentTable" width="100%" border="0" cellpadding="0" cellspacing="0"> -->
+      <table id="logContentTable">
+        <thead>
+          <tr>
+            <th style="width: 50px" class="log-table-date">&nbspDate</th>
+            <th style="width: 120px" class="log-table-time">&nbsptime</th>
+            <th style="width: 30px" class="log-table-level">&nbspL</th>
+            <th style="width: 50px" class="log-table-pid">&nbspPID</th>
+            <th style="width: 50px" class="log-table-tid">&nbspTID</th>
+            <th style="width: 200px" class="log-table-tag">&nbspTag</th>
+            <!-- <th style="width: 200%" class="log-table-message">&nbspMessage</th> -->
+            <th class="log-table-message">&nbspMessage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+          <tr>
+            <td>03-29</td><td>08:55:23.882</td><td>D</td><td>1026</td><td>2388</td><td>sensors_hal_Time</td><td>[LGE][SBP] OP Image supporte fjdaksfjalsdjflsklaskfjlasjlsajkdflksaskjdflasj</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
 
 
     <script>
       'use strict';
-      function activateDevice(device) {
-        console.log("activate " + device);
-      }
       var ADBWrapper = require('../adbwrapper');
       var adbWrapper = new ADBWrapper();
+
+      function activateDevice(device) {
+        device = $(device).text();
+        console.log("activate " + device);
+        adbWrapper.activateDevice(device, document, function (data) {
+
+          $("#logContentTable > tbody:last").append(data);
+          // $("#logContentTable > tbody:last").append('<tr><td>' + data.date + '</td><td>' +
+          //   data.time + '</td><td>' + data.pid + '</td><td>' + data.tid + '</td><td>' +
+          //   data.level + '</td><td>' + data.tag + '</td><td>' + data.msg + '</td></tr>')
+        });
+      }
+
       document.getElementById('dropdownDevicesBtn').addEventListener("click", function () {
         adbWrapper.getDevices(function (devices) {
           if (devices) {
@@ -156,16 +241,20 @@
         });
       });
     </script>
+    <!-- <script>
+      var Controller = require('../controller');
+      Controller.init();
+    </script> -->
     <script src="../vendor/split.js"></script>
-    <script>
+    <!-- <script>
       Split(['#one', '#two'], {
         sizes: [75, 25],
       });
-    </script>
-    <!-- For debugging in browser -->
-    <script src="../vendor/jquery-1.12.2.min.js"></script>
+    </script> -->
     <script>
-      var jQuery = require('../vendor/jquery-1.12.2.min.js');
+      $(function () {
+        $("#logContentTable").colResizable({liveDrag: true});
+      });
     </script>
     <script src="../vendor/bootstrap.min.js"></script>
   </body>

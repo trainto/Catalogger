@@ -15,12 +15,27 @@ body {
   margin-right: 5px;
 }
 
-.main-container {
-  height: 100%;
+.main-content {
+  height: 90%;
+  overflow: scroll;
 }
 
-.main-content {
-  height: 100%;
+/*thead tr {
+  position: absolute;
+  display: block;
+}*/
+
+thead > tr > th {
+  background-color: #c8c8c8;
+  border-right: 1px solid;
+  border-color: #acacac;
+}
+
+#logContentTable {
+  width: 100%;
+  font-size: 12px;
+  border-collapse: collapse;
+  white-space: nowrap;
 }
 
 hr {
