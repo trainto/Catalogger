@@ -6,24 +6,23 @@ html {
 body {
   width: 100%;
   height: 100%;
-  padding: 5px;
   overflow: hidden;
 }
 
 .row {
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.toolbar {
+  float: left;
+  display: block;
 }
 
 .main-content {
   height: 90%;
-  overflow: scroll;
+  overflow: auto;
 }
-
-/*thead tr {
-  position: absolute;
-  display: block;
-}*/
 
 thead > tr > th {
   background-color: #c8c8c8;
