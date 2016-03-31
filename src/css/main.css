@@ -9,6 +9,7 @@ body {
   overflow: hidden;
 }
 
+/* Remove Bootstrap's default margin */
 .row {
   margin-left: 0;
   margin-right: 0;
@@ -20,8 +21,7 @@ body {
 }
 
 .main-content {
-  height: 90%;
-  overflow: auto;
+  height: calc(100% - 50px);
 }
 
 thead > tr > th {
@@ -30,11 +30,30 @@ thead > tr > th {
   border-color: #acacac;
 }
 
-#logContentTable {
+/* Color for each log log-level
+================================================= */
+.log-level-i {
+  color: green;
+}
+.log-level-v {
+  color: black;
+}
+.log-level-d {
+  color: blue;
+}
+.log-level-e {
+  color: red;
+}
+.log-level-w {
+  color: brown;
+}
+
+#logContentTable, #logContentHeader {
   width: 100%;
   font-size: 12px;
   border-collapse: collapse;
-  white-space: nowrap;
+  white-space: pre;
+  table-layout: fixed;
 }
 
 hr {

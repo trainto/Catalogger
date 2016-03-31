@@ -55,7 +55,7 @@ ADBWrapper.prototype.activateLogcat = function (device, document, callback) {
       if (lines.length === 0) return;
       parser.send(lines);
       lines = [];
-    }, 1800);
+    }, 2000);
   });
 
   this.logcat.on('close', function (code, signal) {

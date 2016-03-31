@@ -29,28 +29,44 @@
     </div>
 
     <hr>
-    <div class="row main-content" style="padding-left: 5px">
+    <div class="main-content" style="padding-left: 5px">
       <!-- <div id="one" class="split split-horizontal">
       </div>
       <div id="two" class="split split-horizontal">
       </div> -->
       <!-- <table id="logContentTable" width="100%" border="0" cellpadding="0" cellspacing="0"> -->
-      <table id="logContentTable">
-        <thead>
-          <tr>
-            <th style="width: 50px" class="log-table-date">&nbspDate</th>
-            <th style="width: 120px" class="log-table-time">&nbsptime</th>
-            <th style="width: 50px" class="log-table-pid">&nbspPID</th>
-            <th style="width: 50px" class="log-table-tid">&nbspTID</th>
-            <th style="width: 30px" class="log-table-level">&nbspL</th>
-            <th style="width: 200px" class="log-table-tag">&nbspTag</th>
-            <!-- <th style="width: 200%" class="log-table-message">&nbspMessage</th> -->
-            <th class="log-table-message">&nbspMessage</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class="row" style="height: 20px">
+        <table id="logContentHeader">
+          <thead>
+            <tr>
+              <th style="width: 50px" class="log-table-date">&nbspDate</th>
+              <th style="width: 120px" class="log-table-time">&nbsptime</th>
+              <th style="width: 50px" class="log-table-pid">&nbspPID</th>
+              <th style="width: 50px" class="log-table-tid">&nbspTID</th>
+              <th style="width: 30px" class="log-table-level">&nbspL</th>
+              <th style="width: 230px" class="log-table-tag">&nbspTag</th>
+              <th style="width: calc(100%-430px)" class="log-table-message">&nbspMessage</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="row" style="height: calc(100% - 20px); overflow: auto;">
+        <table id="logContentTable">
+          <thead style="visibility: hidden;">
+            <tr>
+              <th style="width: 50px" class="log-table-date"></th>
+              <th style="width: 120px" class="log-table-time"></th>
+              <th style="width: 50px" class="log-table-pid"></th>
+              <th style="width: 50px" class="log-table-tid"></th>
+              <th style="width: 30px" class="log-table-level"></th>
+              <th style="width: 230px" class="log-table-tag"></th>
+              <th style="width: calc(100%-430px)" class="log-table-message"></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
 
 
@@ -60,14 +76,37 @@
       var ADBWrapper = require('../adbwrapper');
       var adbWrapper = new ADBWrapper();
 
+      for (var i = 0; i < 3000; i++) {
+          $("#logContentTable > tbody:last").append('<tr><td>03-10</td><td>10:10:10.222</td><td>2222</td><td>3333</td><td>I</td><td>tag</td><td>fjdkasfj;asdkjflsdajflk;asdjfl;sajdflfdjslafdjlafsdjl;kasdflsadjkflsdakjl;asdkjfl;sdfdjsakfl;asdjfklsafdjk;lafsdkjlsadl;sadjklasdklkasdjl;dsajkfl;sdakjflk;jas;ljl;asdkfajfl;asdkjflasdjkl;asdjl;asdjkflasdjkfl;kasdjflk;sadjflkasjdfl;ksadjfl;jsad;l;ka</td></tr>');
+        }
       function activateLogcat(device) {
         device = $(device).text();
         $('#logContentTable > tbody > tr').remove();
         adbWrapper.activateLogcat(device, document, function (data) {
-
           $("#logContentTable > tbody:last").append(data);
         });
       }
+
+      // for (var i = 0; i < 3000; i++) {
+      //   $("#logContentTable > tbody:last").append('<tr><td>03-20</td><td>10:10:12.321</td><td>1000</td><td>1999</td><td>I</td><<td>IMS</td><td>fjdkajfslakjfsaflaskfjlsdajl</td></tr>');
+      // }
+
+      // var $table = $('#logContentTable'),
+      //   $bodyCells = $table.find('tbody tr:first').children(),
+      //   colWidth;
+      //
+      // // Adjust the width of thead cells when window resizes
+      // $(window).resize(function() {
+      //   // Get the tbody columns width array
+      //   colWidth = $bodyCells.map(function() {
+      //     return $(this).width();
+      //   }).get();
+      //
+      //   // Set the width of thead columns
+      //   $table.find('thead tr').children().each(function(i, v) {
+      //     $(v).width(colWidth[i]);
+      //   });
+      // }).resize(); // Trigger resize handler
 
       $('#stopBtn').click(function () {
         adbWrapper.deActivateLogcat();
@@ -99,9 +138,7 @@
     </script> -->
     <script>
       $(function () {
-        // $("#logContentTable").colResizable({liveDrag: true});
-        // $("#logContentTable").colResizable({fixed: false});
-        $("#logContentTable").colResizable();
+        $("#logContentHeader").colResizable();
       });
     </script>
     <script src="../vendor/bootstrap.min.js"></script>
