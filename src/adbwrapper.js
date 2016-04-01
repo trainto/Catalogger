@@ -27,8 +27,11 @@ ADBWrapper.prototype.getDevices = function (callback) {
   });
 };
 
-ADBWrapper.prototype.activateLogcat = function (device, document, callback) {
+ADBWrapper.prototype.activateLogcat = function (device, callback) {
   var parser = require('child_process').fork('./src/logcatparser.js');
+  parser.on('message', function(lines) {
+    callback(lines);
+  });
 
   this.exec('adb', ['s', device, 'logcat', '-c']);
   this.logcat = this.spawn('adb',
@@ -37,30 +40,24 @@ ADBWrapper.prototype.activateLogcat = function (device, document, callback) {
 
   var lines = [];
 
-  parser.on('message', function(lines) {
-    $('#logContentTable > tbody:last').append(lines);
-  });
-
-  var intervalRef = null;
-
   var readLine = require("readline");
   var rl = readLine.createInterface({
     input: this.logcat.stdout,
     terminal: false
-  });
-  rl.on('line', function(line) {
+  }).on('line', function(line) {
     if (line === "") return;
     lines.push(line);
-    intervalRef = setInterval(function () {
-      if (lines.length === 0) return;
-      parser.send(lines);
-      lines = [];
-    }, 2000);
   });
+
+  var interval = setInterval(function () {
+    if (lines.length === 0) return;
+    parser.send(lines );
+    lines = [];
+  }, 2000);
 
   this.logcat.on('close', function (code, signal) {
     rl.close();
-    clearInterval(intervalRef);
+    clearInterval(interval);
     parser.kill();
   });
 };
@@ -70,6 +67,10 @@ ADBWrapper.prototype.deActivateLogcat = function () {
     this.logcat.kill();
     this.logcat = null;
   }
+};
+
+ADBWrapper.prototype.setFilters = function (filters) {
+  this.filters = filters;
 };
 
 module.exports = ADBWrapper;

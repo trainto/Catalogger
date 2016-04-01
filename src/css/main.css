@@ -20,6 +20,18 @@ body {
   display: block;
 }
 
+.btn[disabled="disabled"] {
+  background-color: #a1a1a1;
+}
+
+.button-text {
+  width: 62px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
 .main-content {
   height: calc(100% - 50px);
 }

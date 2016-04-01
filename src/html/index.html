@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../vendor/bootstrap.min.css">
     <link rel="stylesheet" href="../css/main.css">
 
-    <script src="../vendor/jquery-1.12.2.min.js"></script>
     <script>
       window.$ = window.jQuery = require('../vendor/jquery-1.12.2.min.js');
     </script>
@@ -24,17 +23,13 @@
         <ul class="dropdown-menu" id="dropdownDevices" aria-labelledby="dropdownMenu1">
         </ul>
       </div>
-      <button type="button" class="btn btn-success toolbar" style="margin-left: 3px" disabled="disabled">Start</button>
-      <button type="button" class="btn btn-danger toolbar" style="margin-left: 3px" id="stopBtn">Stop</button>
+      <button type="button" class="btn btn-success toolbar" style="margin-left: 3px" disabled="disabled" id="startBtn">Start</button>
+      <button type="button" class="btn btn-info toolbar" style="margin-left: 3px" disabled="disabled" id="pauseResumeBtn">Pause</button>
+      <button type="button" class="btn btn-danger toolbar" style="margin-left: 3px" disabled="disabled" id="stopBtn">Stop</button>
     </div>
 
     <hr>
     <div class="main-content" style="padding-left: 5px">
-      <!-- <div id="one" class="split split-horizontal">
-      </div>
-      <div id="two" class="split split-horizontal">
-      </div> -->
-      <!-- <table id="logContentTable" width="100%" border="0" cellpadding="0" cellspacing="0"> -->
       <div class="row" style="height: 20px">
         <table id="logContentHeader">
           <thead>
@@ -50,7 +45,7 @@
           </thead>
         </table>
       </div>
-      <div class="row" style="height: calc(100% - 20px); overflow: auto;">
+      <div class="row" id="logContentTableWrapper" style="height: calc(100% - 20px); overflow: auto;">
         <table id="logContentTable">
           <thead style="visibility: hidden;">
             <tr>
@@ -70,76 +65,9 @@
     </div>
 
 
-
     <script>
-      'use strict';
-      var ADBWrapper = require('../adbwrapper');
-      var adbWrapper = new ADBWrapper();
-
-      for (var i = 0; i < 3000; i++) {
-          $("#logContentTable > tbody:last").append('<tr><td>03-10</td><td>10:10:10.222</td><td>2222</td><td>3333</td><td>I</td><td>tag</td><td>fjdkasfj;asdkjflsdajflk;asdjfl;sajdflfdjslafdjlafsdjl;kasdflsadjkflsdakjl;asdkjfl;sdfdjsakfl;asdjfklsafdjk;lafsdkjlsadl;sadjklasdklkasdjl;dsajkfl;sdakjflk;jas;ljl;asdkfajfl;asdkjflasdjkl;asdjl;asdjkflasdjkfl;kasdjflk;sadjflkasjdfl;ksadjfl;jsad;l;ka</td></tr>');
-        }
-      function activateLogcat(device) {
-        device = $(device).text();
-        $('#logContentTable > tbody > tr').remove();
-        adbWrapper.activateLogcat(device, document, function (data) {
-          $("#logContentTable > tbody:last").append(data);
-        });
-      }
-
-      // for (var i = 0; i < 3000; i++) {
-      //   $("#logContentTable > tbody:last").append('<tr><td>03-20</td><td>10:10:12.321</td><td>1000</td><td>1999</td><td>I</td><<td>IMS</td><td>fjdkajfslakjfsaflaskfjlsdajl</td></tr>');
-      // }
-
-      // var $table = $('#logContentTable'),
-      //   $bodyCells = $table.find('tbody tr:first').children(),
-      //   colWidth;
-      //
-      // // Adjust the width of thead cells when window resizes
-      // $(window).resize(function() {
-      //   // Get the tbody columns width array
-      //   colWidth = $bodyCells.map(function() {
-      //     return $(this).width();
-      //   }).get();
-      //
-      //   // Set the width of thead columns
-      //   $table.find('thead tr').children().each(function(i, v) {
-      //     $(v).width(colWidth[i]);
-      //   });
-      // }).resize(); // Trigger resize handler
-
-      $('#stopBtn').click(function () {
-        adbWrapper.deActivateLogcat();
-      })
-      document.getElementById('dropdownDevicesBtn').addEventListener("click", function () {
-        adbWrapper.getDevices(function (devices) {
-          if (devices) {
-            var innerHTMLForDevices = '';
-            for (var device in devices) {
-              innerHTMLForDevices += "<li onclick=\"activateLogcat(this.innerHTML)\"><a href=\"#\">" + devices[device] + "</a></li>";
-            }
-          } else {
-            console.log("null");
-            innerHTMLForDevices = '';
-          }
-          document.getElementById('dropdownDevices').innerHTML = innerHTMLForDevices;
-        });
-      });
-    </script>
-    <!-- <script>
       var Controller = require('../controller');
       Controller.init();
-    </script> -->
-    <script src="../vendor/split.js"></script>
-    <!-- <script>
-      Split(['#one', '#two'], {
-        sizes: [75, 25],
-      });
-    </script> -->
-    <script>
-      $(function () {
-        $("#logContentHeader").colResizable();
-      });
     </script>
     <script src="../vendor/bootstrap.min.js"></script>
   </body>
