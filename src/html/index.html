@@ -16,17 +16,46 @@
   <body>
     <div class="row" style="padding-left: 5px; padding-top: 5px; padding-right: 5px">
       <div class="dropdown toolbar">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownDevicesBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" width="62px">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownDevicesBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Devices
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" id="dropdownDevices" aria-labelledby="dropdownMenu1">
         </ul>
       </div>
-      <button type="button" class="btn btn-success toolbar" style="margin-left: 3px" disabled="disabled" id="startBtn">Start</button>
-      <button type="button" class="btn btn-info toolbar" style="margin-left: 3px" disabled="disabled" id="pauseResumeBtn">Pause</button>
-      <button type="button" class="btn btn-danger toolbar" style="margin-left: 3px" disabled="disabled" id="stopBtn">Stop</button>
-    </div>
+
+      <button type="button" class="btn btn-success toolbar" disabled="disabled" id="startBtn">Start</button>
+      <button type="button" class="btn btn-info toolbar" style="width: 67px;" disabled="disabled" id="pauseResumeBtn">Pause</button>
+      <button type="button" class="btn btn-danger toolbar" disabled="disabled" id="stopBtn">Stop</button>
+
+      <div class="toolbar divider"></div>
+
+      <div class="toolbar">Level:</div>
+      <div class="btn-group toolbar" data-toggle="buttons">
+        <label class="btn btn-primary btn-xs active" id="chkBoxV">
+          <input type="checkbox" autocomplete="off">V
+        </label>
+        <label class="btn btn-primary active btn-xs" id="chkBoxD">
+          <input type="checkbox" autocomplete="off">D
+        </label>
+        <label class="btn btn-primary active btn-xs" id="chkBoxI">
+          <input type="checkbox" autocomplete="off">I
+        </label>
+        <label class="btn btn-primary active btn-xs" id="chkBoxW">
+          <input type="checkbox" autocomplete="off">W
+        </label>
+        <label class="btn btn-primary active btn-xs" id="chkBoxE">
+          <input type="checkbox" autocomplete="off">E
+        </label>
+        <label class="btn btn-primary active btn-xs" id="chkBoxF">
+          <input type="checkbox" autocomplete="off">F
+        </label>
+      </div>
+
+      <div class="toolbar divider"></div>
+
+
+    </div> <!-- End toolbar row -->
 
     <hr>
     <div class="main-content" style="padding-left: 5px">

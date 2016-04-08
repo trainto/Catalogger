@@ -3,6 +3,7 @@
 var ADBWrapper = require('./adbwrapper');
 
 function Controller() {
+  this.selectedDevice = '',
   this.adbWrapper = null,
   this.isLogActive = false,
   this.isLogPaused = false
@@ -13,7 +14,8 @@ Controller.prototype.activateLogcat = function (device) {
   $('#logContentTable > tbody > tr').remove();
   this.adbWrapper.activateLogcat(device, function (data) {
     $("#logContentTable > tbody:last").append(data);
-    $('#logContentTableWrapper').scrollTop($('#logContentTableWrapper').prop('scrollHeight'));
+    $('#logContentTableWrapper').scrollTop($('#logContentTableWrapper').
+        prop('scrollHeight'));
   });
   this.isLogActive = true;
 
@@ -28,9 +30,10 @@ Controller.prototype.init = function () {
   function setOnDevices() {
     $('#dropdownDevices > li').each(function (i) {
       $(this).click(function () {
-        $('#dropdownDevicesBtn')[0].innerHTML = '<div class="button-text">' +
-            $(this).children('a').text() + '<span class="caret"></span></div>';
-        that.activateLogcat($(this).children('a').text());
+        that.selectedDevice = $(this).children('a').text();
+        $('#dropdownDevicesBtn')[0].innerHTML =
+            that.selectedDevice.slice(0, 7) + ' <span class="caret"></span>';
+        that.activateLogcat(that.selectedDevice);
       })
     });
   }
@@ -56,7 +59,7 @@ Controller.prototype.init = function () {
   });
 
   $('#startBtn').click(function () {
-    that.activateLogcat($('#dropdownDevicesBtn').text());
+    that.activateLogcat(that.selectedDevice);
     $('#startBtn').attr("disabled", "disabled");
     that.isLogActive = true;
   });
@@ -72,6 +75,21 @@ Controller.prototype.init = function () {
   $('#pauseResumeBtn').click(function () {
 
   });
+
+  $('#chkBoxI, #chkBoxV, #chkBoxD, #chkBoxW, #chkBoxE, #chkBoxF').click(
+    function () {
+      var level = $(this).text().trim();
+      var styleId = 'logLevel' + level;
+      var className = '.log-level-' + level.toLocaleLowerCase();
+      var status = !$(this).hasClass('active');
+
+      if (status) {
+        $('#' + styleId).remove();
+      } else {
+        $('<style id="' + styleId + '">' + className + ' { display: none; }</style>').appendTo('head');
+      }
+    }
+  );
 
 
   /* set log table resizable

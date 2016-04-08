@@ -6,6 +6,7 @@ html {
 body {
   width: 100%;
   height: 100%;
+  font-family: Consolas, Menlo, Monaco, "Courier New", monospace;
   overflow: hidden;
 }
 
@@ -16,20 +17,25 @@ body {
 }
 
 .toolbar {
-  float: left;
-  display: block;
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.toolbar.divider {
+  border-left: 1px solid #a3a3a3;
+  height: 30px;
+  margin: 0 3px;
+  vertical-align: middle;
+}
+
+.btn.toolbar {
+  padding: 6px;
 }
 
 .btn[disabled="disabled"] {
   background-color: #a1a1a1;
-}
-
-.button-text {
-  width: 62px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
 }
 
 .main-content {
@@ -72,40 +78,3 @@ hr {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
-
-.gutter.gutter-horizontal {
-  background-image: url('https://raw.githubusercontent.com/nathancahill/Split.js/master/grips/vertical.png');
-  cursor: ew-resize;
-}
-
-.split {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  .gutter {
-    background-color: #eee;
-
-    background-repeat: no-repeat;
-    background-position: 50%;
-  }
-
-  .gutter.gutter-horizontal {
-    background-image: url('https://raw.githubusercontent.com/nathancahill/Split.js/master/grips/vertical.png');
-    cursor: ew-resize;
-  }
-
-  .gutter.gutter-vertical {
-    background-image: url('https://raw.githubusercontent.com/nathancahill/Split.js/master/grips/horizontal.png');
-    cursor: ns-resize;
-  }
-
-  .split.split-horizontal, .gutter.gutter-horizontal {
-    height: 100%;
-    float: left;
-  }
