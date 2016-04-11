@@ -8,7 +8,7 @@ process.on('message', function(lines) {
     if (!match) continue;
 
     var logLevelClass = '';
-    switch (match[5].toLowerCase()) {
+    switch (match[5].trim().toLowerCase()) {
       case 'i':
         logLevelClass = 'log-level-i';
         break;
@@ -27,9 +27,15 @@ process.on('message', function(lines) {
       default:
         logLevelClass = 'log-level-v';
     }
-    var parsedStr = '<tr class=\"' + logLevelClass + '\"><td>' + match[1].trim() + '</td><td>' +
-    match[2].trim() + '</td><td>' + match[3].trim() + '</td><td>' + match[4].trim() + '</td><td>' +
-    match[5].trim() + '</td><td>' + match[6].trim() + '</td><td>' + match[8].trim() + '</td></tr>';
+
+    var pidClass = 'pid-' + match[3].trim();
+    var tidClass = 'tid-' + match[4].trim();
+
+    var parsedStr = '<tr class=\"' + logLevelClass + ' ' + pidClass + ' ' +
+        tidClass + '\"><td>' + match[1].trim() + '</td><td>' + match[2].trim() +
+        '</td><td>' + match[3].trim() + '</td><td>' + match[4].trim() +
+        '</td><td>' + match[5].trim() + '</td><td>' + match[6].trim() +
+        '</td><td>' + match[8].trim() + '</td></tr>';
 
     retStr += parsedStr;
   }
