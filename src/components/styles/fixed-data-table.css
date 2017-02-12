@@ -1,5 +1,5 @@
 /**
- * FixedDataTable v0.7.11 
+ * FixedDataTable v0.7.11
  *
  * Copyright Schrodinger, LLC
  * All rights reserved.
@@ -33,7 +33,7 @@
 .fixedDataTableCellGroupLayout_cellGroup > .public_fixedDataTableCell_main {
   display: inline-block;
   vertical-align: top;
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .fixedDataTableCellGroupLayout_cellGroupWrapper {
@@ -59,7 +59,7 @@
   display: block;
   overflow: hidden;
   position: absolute;
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .fixedDataTableCellLayout_lastChild {
@@ -421,7 +421,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 }
 
 .public_fixedDataTableCell_cellContent {
-  padding: 8px;
+  padding-left: 2px;
 }
 
 .public_fixedDataTableCell_columnResizerKnob {

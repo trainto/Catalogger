@@ -5,6 +5,7 @@ import {Table, Column, Cell} from 'fixed-data-table-2';
 import Dimensions from 'react-dimensions'
 import LogParser from '../logparser'
 import './styles/fixed-data-table.css';
+import './styles/logtable.css'
 
 class LogTable extends React.Component {
   constructor(props) {
@@ -12,13 +13,13 @@ class LogTable extends React.Component {
     this.state = {
       logData: [],
       columnWidths: {
-        time: 200,
-        app: 200,
-        pid: 200,
-        tid: 200,
-        level: 200,
-        tag: 200,
-        message: props.containerWidth - 200 - 200 - 200
+        time: 130,
+        app: 100,
+        pid: 50,
+        tid: 50,
+        level: 50,
+        tag: 150,
+        message: 3000
       },
       columnNames: {
         time: 'Time',
@@ -55,15 +56,21 @@ class LogTable extends React.Component {
     });
   }
 
+  rowClassNameGetter(index) {
+    return 'Level' + this.state.logData[index].level;
+  }
+
   render() {
     const {logData, columnWidths, columnNames} = this.state;
     return (
-      <div id="logtable" style={{float: 'left', height: '100%'}}
-          onDrop={this.onDrop.bind(this)}>
+      <div id="logtable" style={{float: 'left', height: '100%',
+          fontFamily: "Menlo, 'DejaVu Sans Mono', 'Lucida console', monospace",
+          fontSize: '10px'}} onDrop={this.onDrop.bind(this)}>
         <Table
           rowsCount={logData.length}
-          rowHeight={30}
-          headerHeight={30}
+          rowClassNameGetter={this.rowClassNameGetter.bind(this)}
+          rowHeight={14}
+          headerHeight={16}
           width={this.props.containerWidth - 200}
           height={this.props.containerHeight - 70}
           onColumnResizeEndCallback={this._onColumnResizeEndCallback}
