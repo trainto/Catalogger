@@ -1,10 +1,11 @@
 'use strict'
 
-import React from 'react';
-import {Table, Column, Cell} from 'fixed-data-table-2';
-import Dimensions from 'react-dimensions'
+import React from 'react'
+import update from 'react-addons-update'
+import {Table, Column, Cell} from 'fixed-data-table-2'
+import Measure from 'react-measure'
 import LogParser from '../logparser'
-import './styles/fixed-data-table.css';
+import './styles/fixed-data-table.css'
 import './styles/logtable.css'
 
 class LogTable extends React.Component {
@@ -29,6 +30,10 @@ class LogTable extends React.Component {
         level: 'Level',
         tag: 'Tag',
         message: 'Message'
+      },
+      dimensions: {
+        width: -1,
+        height: -1
       }
     };
 
@@ -46,10 +51,8 @@ class LogTable extends React.Component {
   }
 
   onDrop(ev) {
-    console.log(ev.dataTransfer.files[0].path);
     const logParser = new LogParser();
     logParser.parse(ev.dataTransfer.files[0].path, (result) => {
-      console.log(result[1]);
       this.setState({
         logData: result
       });
@@ -60,19 +63,36 @@ class LogTable extends React.Component {
     return 'Level' + this.state.logData[index].level;
   }
 
+  clearTable() {
+    this.setState({
+      logData: []
+    });
+  }
+
+  addRow(line) {
+    this.setState({
+      logData: update(
+        this.state.logData, {$push: [line]}
+      )
+    });
+  }
+
   render() {
-    const {logData, columnWidths, columnNames} = this.state;
+    const {logData, columnWidths, columnNames, dimensions} = this.state;
     return (
-      <div id="logtable" style={{float: 'left', height: '100%',
-          fontFamily: "Menlo, 'DejaVu Sans Mono', 'Lucida console', monospace",
-          fontSize: '10px'}} onDrop={this.onDrop.bind(this)}>
+      <Measure
+        onMeasure={(dimensions) => {
+          this.setState({dimensions})
+        }}
+      >
+        <div id="logtable" onDrop={this.onDrop.bind(this)}>
         <Table
           rowsCount={logData.length}
           rowClassNameGetter={this.rowClassNameGetter.bind(this)}
-          rowHeight={14}
-          headerHeight={16}
-          width={this.props.containerWidth - 200}
-          height={this.props.containerHeight - 70}
+          rowHeight={17}
+          headerHeight={17}
+          width={dimensions.width}
+          height={dimensions.height}
           onColumnResizeEndCallback={this._onColumnResizeEndCallback}
           isColumnResizing={false}
           {...this.props}>
@@ -143,9 +163,10 @@ class LogTable extends React.Component {
             isResizable={true}
           />
         </Table>
-      </div>
+        </div>
+      </Measure>
     );
   }
 }
 
-export default Dimensions()(LogTable);
+export default LogTable
