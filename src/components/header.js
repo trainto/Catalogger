@@ -15,6 +15,7 @@ class Header extends React.Component {
     return (
       <div id="header">
         <Button onClick={dispatcher.onClickStart.bind(dispatcher)}><Glyphicon glyph="play"/> Start</Button>
+        <Button onClick={dispatcher.onClickStop.bind(dispatcher)}><Glyphicon glyph="stop"/> Stop</Button>
         <Button onClick={dispatcher.onClickClear.bind(dispatcher)}><Glyphicon glyph="trash"/> Clear Log</Button>
       </div>
     );

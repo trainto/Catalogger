@@ -4,7 +4,7 @@ import React from 'react'
 import update from 'react-addons-update'
 import {Table, Column, Cell} from 'fixed-data-table-2'
 import Measure from 'react-measure'
-import LogParser from '../logparser'
+import LogParser from '../adb/logparser'
 import './styles/fixed-data-table.css'
 import './styles/logtable.css'
 
@@ -69,10 +69,10 @@ class LogTable extends React.Component {
     });
   }
 
-  addRow(line) {
+  addRow(data) {
     this.setState({
       logData: update(
-        this.state.logData, {$push: [line]}
+        this.state.logData, {$push: data}
       )
     });
   }
