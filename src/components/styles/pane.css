@@ -3,4 +3,6 @@
   width: 200px;
   background-color: rgb(240, 240, 240);
   float: left;
+  padding-left: 5px;
+  padding-right: 5px;
 }

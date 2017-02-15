@@ -31,5 +31,5 @@ process.on('message', (device) => {
       process.send(data);
       data = [];
     }
-  }, 1500);
+  }, 1000);
 });

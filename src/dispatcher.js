@@ -1,6 +1,7 @@
 'use strict'
 
 import ADBWrapper from './adb/adbwrapper'
+import {dataWrapper} from './datawrapper'
 
 class Dispatcher {
   constructor() {
@@ -11,6 +12,9 @@ class Dispatcher {
     this.logTable = table;
   }
 
+  /* ===========================================================================
+  From Header
+  ============================================================================*/
   onClickStart() {
     if (this.adbWrapper === undefined) {
       this.adbWrapper = new ADBWrapper();
@@ -38,6 +42,17 @@ class Dispatcher {
 
   onClickClear() {
     this.logTable.clearTable.call(this.logTable);
+  }
+
+
+  /* ===========================================================================
+  From Pane
+  ============================================================================*/
+  onQuickFilterChanged(event) {
+    // this.logTable.onQuickFilterChanged.call(this.logTable, event.target.value);
+
+    dataWrapper.changeFilter(new Map().set('quick', event.target.value));
+    this.logTable.resetData.call(this.logTable);
   }
 }
 

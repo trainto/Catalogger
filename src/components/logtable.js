@@ -1,18 +1,23 @@
 'use strict'
 
 import React from 'react'
-import update from 'react-addons-update'
+// import update from 'react-addons-update'
 import {Table, Column, Cell} from 'fixed-data-table-2'
 import Measure from 'react-measure'
 import LogParser from '../adb/logparser'
+import {dataWrapper} from '../datawrapper'
+import Filter from '../filter'
 import './styles/fixed-data-table.css'
 import './styles/logtable.css'
 
 class LogTable extends React.Component {
   constructor(props) {
     super(props);
+
+    this.logData = dataWrapper;
+
     this.state = {
-      logData: [],
+      dataToShow: this.logData,
       columnWidths: {
         time: 130,
         app: 100,
@@ -53,32 +58,39 @@ class LogTable extends React.Component {
   onDrop(ev) {
     const logParser = new LogParser();
     logParser.parse(ev.dataTransfer.files[0].path, (result) => {
+      this.logData.setData(result);
       this.setState({
-        logData: result
+        dataToShow: this.logData
       });
     });
   }
 
   rowClassNameGetter(index) {
-    return 'Level' + this.state.logData[index].level;
+    return 'Level' + this.state.dataToShow.getObjectAt(index).level;
   }
 
   clearTable() {
+    this.logData.clear();
     this.setState({
-      logData: []
+      dataToShow: this.logData
     });
   }
 
   addRow(data) {
+    this.logData.push(data);
     this.setState({
-      logData: update(
-        this.state.logData, {$push: data}
-      )
+        dataToShow: this.logData
+    });
+  }
+
+  resetData() {
+    this.setState({
+      dataToShow: this.logData
     });
   }
 
   render() {
-    const {logData, columnWidths, columnNames, dimensions} = this.state;
+    const {dataToShow, columnWidths, columnNames, dimensions} = this.state;
     return (
       <Measure
         onMeasure={(dimensions) => {
@@ -87,7 +99,7 @@ class LogTable extends React.Component {
       >
         <div id="logtable" onDrop={this.onDrop.bind(this)}>
         <Table
-          rowsCount={logData.length}
+          rowsCount={dataToShow.getSize()}
           rowClassNameGetter={this.rowClassNameGetter.bind(this)}
           rowHeight={17}
           headerHeight={17}
@@ -101,7 +113,7 @@ class LogTable extends React.Component {
             header={<Cell>{columnNames.time}</Cell>}
             cell={props => (
               <Cell {...props}>
-                {logData[props.rowIndex].time}
+                {dataToShow.getObjectAt(props.rowIndex).time}
               </Cell>
             )}
             width={columnWidths.time}
@@ -112,7 +124,7 @@ class LogTable extends React.Component {
             header={<Cell>{columnNames.pid}</Cell>}
             cell={props => (
               <Cell {...props}>
-                {logData[props.rowIndex].pid}
+                {dataToShow.getObjectAt(props.rowIndex).pid}
               </Cell>
             )}
             width={columnWidths.pid}
@@ -123,7 +135,7 @@ class LogTable extends React.Component {
             header={<Cell>{columnNames.tid}</Cell>}
             cell={props => (
               <Cell {...props}>
-                {logData[props.rowIndex].tid}
+                {dataToShow.getObjectAt(props.rowIndex).tid}
               </Cell>
             )}
             width={columnWidths.tid}
@@ -134,7 +146,7 @@ class LogTable extends React.Component {
             header={<Cell>{columnNames.level}</Cell>}
             cell={props => (
               <Cell {...props}>
-                {logData[props.rowIndex].level}
+                {dataToShow.getObjectAt(props.rowIndex).level}
               </Cell>
             )}
             width={columnWidths.level}
@@ -145,7 +157,7 @@ class LogTable extends React.Component {
             header={<Cell>{columnNames.tag}</Cell>}
             cell={props => (
               <Cell {...props}>
-                {logData[props.rowIndex].tag}
+                {dataToShow.getObjectAt(props.rowIndex).tag}
               </Cell>
             )}
             width={columnWidths.tag}
@@ -156,7 +168,7 @@ class LogTable extends React.Component {
             header={<Cell>{columnNames.message}</Cell>}
             cell={props => (
               <Cell {...props}>
-                {logData[props.rowIndex].message}
+                {dataToShow.getObjectAt(props.rowIndex).message}
               </Cell>
             )}
             width={columnWidths.message}
