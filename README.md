@@ -1,2 +1,2 @@
-# YourADBTool
-Android ADB Tool written in HTML, CSS and Javascript
+# ALogX
+Android logcat viewer written in HTML, CSS and Javascript
