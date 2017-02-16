@@ -1,0 +1,24 @@
+.LevelE {
+  color: red;
+}
+
+.LevelD {
+  color: blue;
+}
+
+.LevelI {
+  color: green;
+}
+
+.LevelW {
+  color: orange;
+}
+
+#logtable {
+  float: left;
+  width: calc(100% - 200px);
+  height: calc(100% - 70px);
+  font-size: 13px;
+  font-family: 'Menlo, "DejaVu Sans Mono", "Lucida console", monospace';
+  outline: none;
+}
