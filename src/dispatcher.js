@@ -6,10 +6,19 @@ import {dataWrapper} from './datawrapper'
 class Dispatcher {
   constructor() {
     this.adbWrapper = undefined;
+    this.filterTimer = undefined;
   }
 
   setLogTable(table) {
     this.logTable = table;
+  }
+
+  focusToLogTable() {
+    const logtableDiv = document.getElementById("logtable");
+    const savedTabIndex = logtableDiv.getAttribute('tabindex');
+    logtableDiv.setAttribute('tabindex', '-1');
+    logtableDiv.focus();
+    logtableDiv.setAttribute('tabindex', savedTabIndex);
   }
 
   /* ===========================================================================
@@ -21,9 +30,10 @@ class Dispatcher {
     }
     const devices = this.adbWrapper.getDevices((devices) => {
       if (devices.length === 1) {
-        this.logTable.clearTable.call(this.logTable);
-        this.adbWrapper.startLogcat2(devices[0], (data) => {
-          this.logTable.addRow(data);
+        this.logTable.clearTable();
+        this.adbWrapper.startLogcat(devices[0], (data) => {
+          dataWrapper.push(data);
+          this.logTable.resetData();
         });
       } else if (devcies.length > 1) {
 
@@ -37,22 +47,34 @@ class Dispatcher {
     if (this.adbWrapper !== undefined) {
       this.adbWrapper.stopAdbLogcat();
     }
-
+    this.focusToLogTable();
   }
 
   onClickClear() {
     this.logTable.clearTable.call(this.logTable);
   }
 
+  onAutoscrollChanged(event) {
+    this.logTable.setAutoScroll(event.target.checked);
+  }
+
 
   /* ===========================================================================
   From Pane
   ============================================================================*/
-  onQuickFilterChanged(event) {
-    // this.logTable.onQuickFilterChanged.call(this.logTable, event.target.value);
+  preventEnter(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
 
-    dataWrapper.changeFilter(new Map().set('quick', event.target.value));
-    this.logTable.resetData.call(this.logTable);
+  onQuickFilterChanged(event) {
+    clearTimeout(this.filterTimer);
+    const text = event.target.value;
+    this.filterTimer = setTimeout(() => {
+      dataWrapper.changeFilter(new Map().set('quick', text));
+      this.logTable.resetData.call(this.logTable);
+    }, 1000);
   }
 }
 

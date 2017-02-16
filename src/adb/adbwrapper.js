@@ -25,7 +25,7 @@ class ADBWrapper {
     });
   }
 
-  startLogcat2(device, callback) {
+  startLogcat(device, callback) {
     this.adbLogcatParser = fork('./src/adb/adblogcatparser.js');
     this.adbLogcatParser.on('message', (data) => {
       callback(data);

@@ -18,7 +18,8 @@ class Pane extends React.Component {
             <InputGroup>
               <InputGroup.Addon><Glyphicon glyph='filter' /></InputGroup.Addon>
               <FormControl type="text" placeholder='Quick filter'
-                  onChange={dispatcher.onQuickFilterChanged.bind(dispatcher)}/>
+                  onChange={dispatcher.onQuickFilterChanged.bind(dispatcher)}
+                  onKeyPress={dispatcher.preventEnter.bind(dispatcher)}/>
             </InputGroup>
           </FormGroup>
         </form>

@@ -8,7 +8,13 @@
   align-items: center;
 }
 
-#header > .btn {
+#header > #command-buttons > .btn {
   margin-left: 5px;
   outline: none;
+}
+
+#header > #autoscroll {
+  position: fixed;
+  right: 15px;
+  top: 35px;
 }

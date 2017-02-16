@@ -42,8 +42,14 @@ class LogTable extends React.Component {
       }
     };
 
+    this.autoScroll = true;
+
     this._onColumnResizeEndCallback =
         this._onColumnResizeEndCallback.bind(this);
+    this._rowClassNameGetter = this._rowClassNameGetter.bind(this);
+    this.setAutoScroll = this.setAutoScroll.bind(this);
+    this.clearTable = this.clearTable.bind(this);
+    this.scrollToEnd = this.scrollToEnd.bind(this);
   }
 
   _onColumnResizeEndCallback(newColumnWidth, columnKey) {
@@ -55,7 +61,7 @@ class LogTable extends React.Component {
     }));
   }
 
-  onDrop(ev) {
+  _onDrop(ev) {
     const logParser = new LogParser();
     logParser.parse(ev.dataTransfer.files[0].path, (result) => {
       this.logData.setData(result);
@@ -65,8 +71,12 @@ class LogTable extends React.Component {
     });
   }
 
-  rowClassNameGetter(index) {
+  _rowClassNameGetter(index) {
     return 'Level' + this.state.dataToShow.getObjectAt(index).level;
+  }
+
+  setAutoScroll(enabled) {
+    this.autoScroll = enabled;
   }
 
   clearTable() {
@@ -76,16 +86,24 @@ class LogTable extends React.Component {
     });
   }
 
-  addRow(data) {
-    this.logData.push(data);
-    this.setState({
-        dataToShow: this.logData
-    });
-  }
-
   resetData() {
     this.setState({
       dataToShow: this.logData
+    });
+
+    if (this.autoScroll) {
+      this.scrollToEnd();
+    }
+  }
+
+  scrollBy(deltaX, deltaY) {
+    this.logTable._onScroll(deltaX, deltaY);
+  }
+
+  scrollToEnd() {
+    const endRow = this.state.dataToShow.getSize();
+    this.setState({
+      currentIndex: endRow
     });
   }
 
@@ -97,10 +115,12 @@ class LogTable extends React.Component {
           this.setState({dimensions})
         }}
       >
-        <div id="logtable" onDrop={this.onDrop.bind(this)}>
+        <div id="logtable" onDrop={this._onDrop.bind(this)}>
         <Table
+          ref={(table) => this.logTable = table}
           rowsCount={dataToShow.getSize()}
-          rowClassNameGetter={this.rowClassNameGetter.bind(this)}
+          rowClassNameGetter={this._rowClassNameGetter}
+          scrollToRow={this.state.currentIndex}
           rowHeight={17}
           headerHeight={17}
           width={dimensions.width}
