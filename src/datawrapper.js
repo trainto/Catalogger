@@ -34,6 +34,11 @@ class DataWrapper {
 
   push(rows) {
     this.data.push(...rows);
+    if (this.filter.filterEnabled) {
+      console.log('filter enabled');
+      const startIndex = this.data.length - rows.length;
+      this.filter.addRows(startIndex, this.data);
+    }
   }
 
   clear() {
@@ -42,7 +47,7 @@ class DataWrapper {
   }
 
   changeFilter(filterBy) {
-    filter.setFilter(filterBy, this.data);
+    this.filter.setFilter(filterBy, this.data);
   }
 }
 
