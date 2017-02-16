@@ -4,10 +4,15 @@
   background-color: rgb(220, 220, 220);
   padding-left: 10px;
   padding-right: 10px;
-  display: flex;
-  align-items: center;
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
 }
 
+#header > #command-buttons {
+  position: fixed;
+  top: 25px;
+  -webkit-app-region: no-drag;
+}
 #header > #command-buttons > .btn {
   margin-left: 5px;
   outline: none;
@@ -17,4 +22,5 @@
   position: fixed;
   right: 15px;
   top: 35px;
+  -webkit-app-region: no-drag;
 }

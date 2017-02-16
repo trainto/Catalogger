@@ -42,7 +42,7 @@ class LogTable extends React.Component {
       }
     };
 
-    this.autoScroll = true;
+    this.autoScroll = false;
 
     this._onColumnResizeEndCallback =
         this._onColumnResizeEndCallback.bind(this);

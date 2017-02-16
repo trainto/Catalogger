@@ -15,14 +15,14 @@ class Header extends React.Component {
     return (
       <div id="header">
         <div id="command-buttons">
-          <Button onClick={dispatcher.onClickStart.bind(dispatcher)}>
-            <Glyphicon glyph="play"/> Start
+          <Button onClick={dispatcher.onClickStart.bind(dispatcher)} data-toggle="tooltip" title="Start">
+            <Glyphicon glyph="play"/>
           </Button>
           <Button onClick={dispatcher.onClickStop.bind(dispatcher)}>
-            <Glyphicon glyph="stop"/> Stop
+            <Glyphicon glyph="stop"/>
           </Button>
           <Button onClick={dispatcher.onClickClear.bind(dispatcher)}>
-            <Glyphicon glyph="trash"/> Clear Log
+            <Glyphicon glyph="trash"/>
           </Button>
         </div>
         <div id="autoscroll">

@@ -9,17 +9,19 @@ class Dispatcher {
     this.filterTimer = undefined;
   }
 
-  setLogTable(table) {
-    this.logTable = table;
-  }
 
-  focusToLogTable() {
+  _focusToLogTable() {
     const logtableDiv = document.getElementById("logtable");
     const savedTabIndex = logtableDiv.getAttribute('tabindex');
     logtableDiv.setAttribute('tabindex', '-1');
     logtableDiv.focus();
     logtableDiv.setAttribute('tabindex', savedTabIndex);
   }
+
+  setLogTable(table) {
+    this.logTable = table;
+  }
+
 
   /* ===========================================================================
   From Header
@@ -41,21 +43,28 @@ class Dispatcher {
 
       }
     });
+
+    this._focusToLogTable();
   }
 
   onClickStop() {
     if (this.adbWrapper !== undefined) {
       this.adbWrapper.stopAdbLogcat();
     }
-    this.focusToLogTable();
+
+    this._focusToLogTable();
   }
 
   onClickClear() {
     this.logTable.clearTable.call(this.logTable);
+
+    this._focusToLogTable();
   }
 
   onAutoscrollChanged(event) {
     this.logTable.setAutoScroll(event.target.checked);
+
+    this._focusToLogTable();
   }
 
 
