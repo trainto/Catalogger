@@ -5,14 +5,13 @@ import {dataWrapper} from './datawrapper'
 
 class Dispatcher {
   constructor() {
-    this.adbWrapper = undefined;
+    this.adbWrapper = new ADBWrapper();
     this.filterTimer = undefined;
 
     this.header = undefined;
 
     this.setHeader = this.setHeader.bind(this);
-    this.onClickStart = this.onClickStart.bind(this);
-    this.onClickStop = this.onClickStop.bind(this);
+    this.onClickStartStop = this.onClickStartStop.bind(this);
     this.onClickClear = this.onClickClear.bind(this);
     this.onAutoscrollChanged = this.onAutoscrollChanged.bind(this);
   }
@@ -24,6 +23,12 @@ class Dispatcher {
     logtableDiv.setAttribute('tabindex', '-1');
     logtableDiv.focus();
     logtableDiv.setAttribute('tabindex', savedTabIndex);
+  }
+
+  _getDevices(devices) {
+    if (devices.length == 1) {
+      return devices[0];
+    }
   }
 
   setLogTable(table) {
@@ -38,35 +43,37 @@ class Dispatcher {
   /* ===========================================================================
   From Header
   ============================================================================*/
-  onClickStart(event) {
-    if (this.adbWrapper === undefined) {
-      this.adbWrapper = new ADBWrapper();
-    }
-    const devices = this.adbWrapper.getDevices((devices) => {
-      if (devices.length === 1) {
+  onClickStartStop(event) {
+    if (!this.header.state.isStarted) {
+      this.adbWrapper.getDevices((devices) => {
+        const device = this._getDevices(devices);
         this.logTable.clearTable();
-        this.adbWrapper.startLogcat(devices[0], (data) => {
-          dataWrapper.push(data);
-          this.logTable.resetData();
+        this.adbWrapper.startLogcat(device, (what, data) => {
+          switch (what) {
+            case 'data':
+              dataWrapper.push(data);
+              this.logTable.resetData();
+              break;
+            case 'stop':
+              this.header.setState({isStarted: false});
+              break;
+            case 'start':
+              this.header.setState({
+                isStarted: true,
+                isLoading: false
+              });
+              break;
+            default:
+              break;
+          }
         });
-        this.header.setState({isStarted: true});
-      } else if (devcies.length > 1) {
-
-      } else {
-
-      }
-    });
-
-    this._focusToLogTable();
-  }
-
-  onClickStop() {
-    if (this.adbWrapper !== undefined) {
+        this.header.setState({isLoading: true})
+      });
+    } else {
       this.adbWrapper.stopAdbLogcat();
     }
 
-    this.header.setState({isStarted: false});
-    this._focusToLogTable();
+      this._focusToLogTable();
   }
 
   onClickClear() {
@@ -97,6 +104,7 @@ class Dispatcher {
   preventEnter(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
+      this._focusToLogTable();
     }
   }
 

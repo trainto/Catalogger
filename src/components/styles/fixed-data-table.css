@@ -421,7 +421,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 }
 
 .public_fixedDataTableCell_cellContent {
-  padding-left: 2px;
+  padding-left: 5px;
 }
 
 .public_fixedDataTableCell_columnResizerKnob {

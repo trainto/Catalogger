@@ -10,20 +10,19 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isStarted: false
+      isStarted: false,
+      isLoading: false
     };
   }
 
   render() {
     let isStarted = this.state.isStarted;
+    let isLoading = this.state.isLoading;
     return (
       <div id="header" onDoubleClick={dispatcher.onDoubleClickHeader}>
         <div id="command-buttons">
-          <Button onClick={dispatcher.onClickStart} disabled={isStarted}>
-            <Glyphicon glyph="play"/>
-          </Button>
-          <Button onClick={dispatcher.onClickStop} disabled={!isStarted}>
-            <Glyphicon glyph="stop"/>
+          <Button onClick={dispatcher.onClickStartStop} disabled={isLoading}>
+            {isLoading ? <Glyphicon glyph="hourglass"/> : (isStarted ? <Glyphicon bsSize="large"glyph="stop"/> : <Glyphicon glyph="play"/>)}
           </Button>
           <Button onClick={dispatcher.onClickClear}>
             <Glyphicon glyph="trash"/>

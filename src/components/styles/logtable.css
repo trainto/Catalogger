@@ -1,17 +1,21 @@
 .LevelE {
-  color: red;
+  color: #f75d5d;
 }
 
 .LevelD {
-  color: blue;
+  color: #5869ff;
 }
 
 .LevelI {
-  color: green;
+  color: #216607;
 }
 
 .LevelW {
   color: orange;
+}
+
+.LevelV {
+  color: #373737;
 }
 
 #logtable {

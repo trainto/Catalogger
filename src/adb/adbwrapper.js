@@ -27,12 +27,17 @@ class ADBWrapper {
 
   startLogcat(device, callback) {
     this.adbLogcatParser = fork('./src/adb/adblogcatparser.js');
+    let started = false;
     this.adbLogcatParser.on('message', (data) => {
-      callback(data);
+      callback('data', data);
+      if (!started) {
+        callback('start');
+      }
     });
 
     this.adbLogcatParser.on('close', (code, signal) => {
       console.log('adbwrapper.js: adbLogcatParser process killed!');
+      callback('stop')
     })
 
     this.adbLogcatParser.send(device);
