@@ -13,21 +13,23 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div id="header">
+      <div id="header" onDoubleClick={dispatcher.onDoubleClickHeader}>
         <div id="command-buttons">
-          <Button onClick={dispatcher.onClickStart.bind(dispatcher)} data-toggle="tooltip" title="Start">
+          <Button onClick={dispatcher.onClickStart}>
             <Glyphicon glyph="play"/>
           </Button>
-          <Button onClick={dispatcher.onClickStop.bind(dispatcher)}>
+          <Button onClick={dispatcher.onClickStop}>
             <Glyphicon glyph="stop"/>
           </Button>
-          <Button onClick={dispatcher.onClickClear.bind(dispatcher)}>
+          <Button onClick={dispatcher.onClickClear}>
             <Glyphicon glyph="trash"/>
           </Button>
         </div>
         <div id="autoscroll">
           <form>
-            <Checkbox onChange={dispatcher.onAutoscrollChanged.bind(dispatcher)}>Auto scroll</Checkbox>
+            <Checkbox onChange={dispatcher.onAutoscrollChanged}>
+              Auto scroll
+            </Checkbox>
           </form>
         </div>
       </div>

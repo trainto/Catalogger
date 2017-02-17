@@ -7,6 +7,11 @@ class Dispatcher {
   constructor() {
     this.adbWrapper = undefined;
     this.filterTimer = undefined;
+
+    this.onClickStart = this.onClickStart.bind(this);
+    this.onClickStop = this.onClickStop.bind(this);
+    this.onClickClear = this.onClickClear.bind(this);
+    this.onAutoscrollChanged = this.onAutoscrollChanged.bind(this);
   }
 
 
@@ -65,6 +70,15 @@ class Dispatcher {
     this.logTable.setAutoScroll(event.target.checked);
 
     this._focusToLogTable();
+  }
+
+  onDoubleClickHeader(event) {
+    const currentWindow = window.require('electron').remote.getCurrentWindow();
+    if (currentWindow.isMaximized()) {
+      currentWindow.unmaximize();
+    } else {
+      currentWindow.maximize();
+    }
   }
 
 
