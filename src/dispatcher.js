@@ -47,12 +47,12 @@ class Dispatcher {
     if (!this.header.state.isStarted) {
       this.adbWrapper.getDevices((devices) => {
         const device = this._getDevices(devices);
-        this.logTable.clearTable();
+        dataWrapper.resetData();
         this.adbWrapper.startLogcat(device, (what, data) => {
           switch (what) {
             case 'data':
               dataWrapper.push(data);
-              this.logTable.resetData();
+              this.logTable.resetData.call(this.logTable);
               break;
             case 'stop':
               this.header.setState({isStarted: false});
@@ -106,6 +106,25 @@ class Dispatcher {
       event.preventDefault();
       this._focusToLogTable();
     }
+  }
+
+  onFilterChanged(filter, changed) {
+    clearTimeout(this.filterTimer);
+    this.filter = setTimeout(() => {
+      switch (filter) {
+        case 'V':
+        case 'W':
+        case 'D':
+        case 'I':
+        case 'E':
+          dataWrapper.changeFilter(new Map().set('level', [filter, changed]));
+          this.logTable.resetData.call(this.logTable);
+          break
+        default:
+          break;
+      }
+    }, 1000);
+    this._focusToLogTable()
   }
 
   onQuickFilterChanged(event) {

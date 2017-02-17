@@ -1,9 +1,18 @@
 #pane {
-  height: 100%;
+  height: calc(100% - 70px);
   width: 200px;
   background-color: rgb(240, 240, 240);
   float: left;
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 1px;
+}
+
+#filter-level {
+  padding-left: 10px;
+  -webkit-user-select: none;
+}
+
+.checkbox+.checkbox {
+  margin-top: -10px;
 }

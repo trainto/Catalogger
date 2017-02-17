@@ -4,15 +4,22 @@ class Filter {
   constructor() {
     this.indexMap = [];
 
-    this.filterEnabled = false;
+    this.filterOn = false;
+    this._filterEnabled = false;
 
-    this.filterState = new Map();
-    this.filterState.set('quick', '');
-    // this.filterState.set('app', '');
-    this.filterState.set('pid', '');
-    this.filterState.set('tid', '');
-    this.filterState.set('level', '');
-    this.filterState.set('message', '');
+    this._filterState = new Map();
+    // this._filterState.set('app', '');
+    this._filterState.set('pid', '');
+    this._filterState.set('tid', '');
+    this._filterState.set('level', '');
+    this._filterState.set('message', '');
+
+    this._quickFilter = '';
+    this._quickFilterEnabled = false;
+  }
+
+  resetIndexMap() {
+    this.indexMap = [];
   }
 
   getSize() {
@@ -27,93 +34,116 @@ class Filter {
     this.indexMap = [];
   }
 
-  updateFilterState(filterBy) {
+  _updateFilterState(filterBy) {
     filterBy.forEach((val, key) => {
-      this.filterState.set(key, val);
-    });
-
-    this.filterEnabled = false;
-    this.filterState.forEach((val, key) => {
-      if (val !== '') {
-        this.filterEnabled = true;
+      if (key === 'level') {
+        if (val[1]) { // Add Level
+          this._filterState.set(key, this._filterState.get(key).concat(val[0]))
+        } else { // Remove Level
+          this._filterState.set(
+            key, this._filterState.get(key).replace(val[0], ''))
+        }
+      } else {
+        this._filterState.set(key, val);
       }
     });
+
+    this._filterEnabled = false;
+    this._filterState.forEach((val, key) => {
+      if (val !== '') {
+        this._filterEnabled = true;
+      }
+    });
+
+    this._quickFilterEnabled = false;
+    const quickFilter = filterBy.get('quick');
+    if (quickFilter && quicFilter !== '') {
+      this._quickFilter = quickFilter;
+      this._quickFilterEnabled = true;
+    }
+
+    this.filterOn = this._quickFilterEnabled || this._filterEnabled;
   }
 
   setFilter(filterBy, data) {
-    this.updateFilterState(filterBy)
-    this._resetIndexMapWithQuickFilter(data);
+    this._updateFilterState(filterBy);
+    console.log('setFilter')
+    if (this.filterOn) {
+      console.log('filter on');
+      this.indexMap = [];
+      this.addRowsIfNeeded(0, data);
+    }
   }
 
-  addRows(startIndex, data) {
+  addRowsIfNeeded(startIndex, data) {
     for (let i = startIndex; i < data.length; i++) {
-      if (this._needToAdd(data[i]) && this._needToAddByQuick(data[i])) {
-        this.indexMap.push(i);
-      } else if (this._needToAddByQuick(data[i])) {
+      let need = false;
+      if (this._filterEnabled && this._needToAdd(data[i])) {
+        need = true;
+      }
+      if (this._quickFilterEnabled && !this._needToAddByQuick(data[i])) {
+        need = false;
+      }
+      if (need) {
         this.indexMap.push(i);
       }
     }
   }
 
   _needToAdd(row) {
-    this.filterState.forEach((val, key) => {
+    let ret = true;
+    this._filterState.forEach((val, key) => {
       if (key !== 'quick' && val !== '') {
         let text;
         switch (key) {
           case 'pid':
             let {pid} = row;
             text = pid;
+            if (pid.toLowerCase().indexOf(val) === -1) {
+              ret = false;
+            }
             break;
           case 'tid':
             let {tid} = row;
-            text = tid;
+            if (tid.toLowerCase().indexOf(val) === -1) {
+              ret = false;
+            }
             break;
           case 'level':
             let {level} = row;
-            text = level;
+            if (val.indexOf(level) === -1) {
+              ret = false;
+            }
             break;
           case 'tag':
             let {tag} = row;
-            text = tag;
+            if (tag.toLowerCase().indexOf(val) === -1) {
+              ret = false;
+            }
             break;
           case 'message':
             let {message} = row;
-            text = message;
+            if (message.toLowerCase().indexOf(val) === -1) {
+              ret = false;
+            }
             break;
           default:
             break;
         }
-
-        if (text.toLowerCase().indexOf(val) !== -1) {
-          return true;
-        }
       }
     });
+
+    return ret;
   }
 
   _needToAddByQuick(row) {
-    if (this.filterState.get('quick') === '') {
+    const {tag, message} = row;
+    const filterText = this._quickFilter.toLowerCase();
+    if (message.toLowerCase().indexOf(filterText) !== -1 ||
+        tag.toLowerCase().indexOf(filterText) !== -1) {
       return true;
-    } else {
-      const {tag, message} = row;
-      const filterText = this.filterState.get('quick').toLowerCase();
-      if (message.toLowerCase().indexOf(filterText) !== -1 ||
-          tag.toLowerCase().indexOf(filterText) !== -1) {
-        return true;
-      }
     }
-  }
-
-  _resetIndexMapWithQuickFilter(data) {
-    this.indexMap = [];
-    const filterText = this.filterState.get('quick').toLowerCase();
-    for (let i = 0; i < data.length; i++) {
-      let {tag, message} = data[i];
-      if (message.toLowerCase().indexOf(filterText) !== -1 ||
-          tag.toLowerCase().indexOf(filterText) !== -1) {
-        this.indexMap.push(i);
-      }
-    }
+    return false;
   }
 }
 
