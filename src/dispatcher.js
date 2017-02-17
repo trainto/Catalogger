@@ -8,6 +8,9 @@ class Dispatcher {
     this.adbWrapper = undefined;
     this.filterTimer = undefined;
 
+    this.header = undefined;
+
+    this.setHeader = this.setHeader.bind(this);
     this.onClickStart = this.onClickStart.bind(this);
     this.onClickStop = this.onClickStop.bind(this);
     this.onClickClear = this.onClickClear.bind(this);
@@ -27,11 +30,15 @@ class Dispatcher {
     this.logTable = table;
   }
 
+  setHeader(header) {
+    this.header = header;
+  }
+
 
   /* ===========================================================================
   From Header
   ============================================================================*/
-  onClickStart() {
+  onClickStart(event) {
     if (this.adbWrapper === undefined) {
       this.adbWrapper = new ADBWrapper();
     }
@@ -42,6 +49,7 @@ class Dispatcher {
           dataWrapper.push(data);
           this.logTable.resetData();
         });
+        this.header.setState({isStarted: true});
       } else if (devcies.length > 1) {
 
       } else {
@@ -57,6 +65,7 @@ class Dispatcher {
       this.adbWrapper.stopAdbLogcat();
     }
 
+    this.header.setState({isStarted: false});
     this._focusToLogTable();
   }
 

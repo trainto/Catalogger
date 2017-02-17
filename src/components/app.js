@@ -14,7 +14,7 @@ class App extends React.Component {
   render() {
     return (
       <div style={{height: '100%'}}>
-        <Header />
+        <Header ref={(header) => dispatcher.setHeader(header)}/>
         <div id="middle" style={{height: '100%'}}>
           <Pane />
           <LogTable ref={(logtable) => dispatcher.setLogTable(logtable)}/>
