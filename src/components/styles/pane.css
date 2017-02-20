@@ -13,6 +13,15 @@
   -webkit-user-select: none;
 }
 
+#filter-other {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .checkbox+.checkbox {
   margin-top: -10px;
+}
+
+.input-group+.input-group {
+  margin-top: 3px;
 }

@@ -22,7 +22,6 @@
   float: left;
   width: calc(100% - 200px);
   height: calc(100% - 70px);
-  font-size: 13px;
-  font-family: 'Menlo, "DejaVu Sans Mono", "Lucida console", monospace';
+  font-size: 11px;
   outline: none;
 }

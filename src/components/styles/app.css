@@ -1,0 +1,14 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-size: 11px;
+  font-family: Menlo, "DejaVu Sans Mono", "Lucida console", monospace;
+}
+
+#app {
+  height: 100%;
+}

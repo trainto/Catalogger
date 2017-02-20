@@ -56,29 +56,29 @@ class Pane extends React.Component {
             </Checkbox>
           </form>
         </div>
-        <div>
+        <div id='filter-other'>
           <form>
             <FormGroup bsSize="small">
               <InputGroup>
-                <InputGroup.Addon>PID</InputGroup.Addon>
-                <FormControl type="text" placeholder='pid'
+                <InputGroup.Addon>pid</InputGroup.Addon>
+                <FormControl type="number" placeholder='pid'
                     onKeyPress={dispatcher.preventEnter}
                     onChange={(event) => dispatcher.onFilterChanged('pid', event.target.value)}/>
               </InputGroup>
               <InputGroup>
-                <InputGroup.Addon>TID</InputGroup.Addon>
-                <FormControl type="text" placeholder='tid'
+                <InputGroup.Addon>tid</InputGroup.Addon>
+                <FormControl type="number" placeholder='tid'
                     onKeyPress={dispatcher.preventEnter}
                     onChange={(event) => dispatcher.onFilterChanged('tid', event.target.value)}/>
               </InputGroup>
               <InputGroup>
-                <InputGroup.Addon>Tag</InputGroup.Addon>
+                <InputGroup.Addon>tag</InputGroup.Addon>
                 <FormControl type="text" placeholder='tag'
                     onKeyPress={dispatcher.preventEnter}
                     onChange={(event) => dispatcher.onFilterChanged('tag', event.target.value)}/>
               </InputGroup>
               <InputGroup>
-                <InputGroup.Addon>Msg</InputGroup.Addon>
+                <InputGroup.Addon>msg</InputGroup.Addon>
                 <FormControl type="text" placeholder='message'
                     onKeyPress={dispatcher.preventEnter}
                     onChange={(event) => dispatcher.onFilterChanged('message', event.target.value)}/>

@@ -89,7 +89,6 @@ class Filter {
             break;
           case 'pid':
             let {pid} = row;
-            text = pid;
             if (pid.toLowerCase().indexOf(val) === -1) {
               ret = false;
             }
