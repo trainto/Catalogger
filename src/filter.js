@@ -5,17 +5,16 @@ class Filter {
     this.indexMap = [];
 
     this.filterOn = false;
-    this._filterEnabled = false;
+
+    this._filterTimer = undefined;
 
     this._filterState = new Map();
+    this._filterState.set('quick', '');
     // this._filterState.set('app', '');
     this._filterState.set('pid', '');
     this._filterState.set('tid', '');
     this._filterState.set('level', '');
     this._filterState.set('message', '');
-
-    this._quickFilter = '';
-    this._quickFilterEnabled = false;
   }
 
   resetIndexMap() {
@@ -48,43 +47,29 @@ class Filter {
       }
     });
 
-    this._filterEnabled = false;
+    this.filterOn = false;
     this._filterState.forEach((val, key) => {
       if (val !== '') {
-        this._filterEnabled = true;
+        this.filterOn = true;
       }
     });
-
-    this._quickFilterEnabled = false;
-    const quickFilter = filterBy.get('quick');
-    if (quickFilter && quicFilter !== '') {
-      this._quickFilter = quickFilter;
-      this._quickFilterEnabled = true;
-    }
-
-    this.filterOn = this._quickFilterEnabled || this._filterEnabled;
   }
 
-  setFilter(filterBy, data) {
+  setFilter(filterBy, data, callback) {
     this._updateFilterState(filterBy);
-    console.log('setFilter')
-    if (this.filterOn) {
-      console.log('filter on');
-      this.indexMap = [];
-      this.addRowsIfNeeded(0, data);
-    }
+    clearTimeout(this._filterTimer);
+    this._filterTimer = setTimeout(() => {
+      // if (this.filterOn) {
+        this.indexMap = [];
+        this.addRowsIfNeeded(0, data);
+        callback();
+      // }
+    }, 1500);
   }
 
   addRowsIfNeeded(startIndex, data) {
     for (let i = startIndex; i < data.length; i++) {
-      let need = false;
-      if (this._filterEnabled && this._needToAdd(data[i])) {
-        need = true;
-      }
-      if (this._quickFilterEnabled && !this._needToAddByQuick(data[i])) {
-        need = false;
-      }
-      if (need) {
+      if (this._needToAdd(data[i])) {
         this.indexMap.push(i);
       }
     }
@@ -92,10 +77,16 @@ class Filter {
 
   _needToAdd(row) {
     let ret = true;
+    let {tag, message} = row;
     this._filterState.forEach((val, key) => {
-      if (key !== 'quick' && val !== '') {
-        let text;
+      if (val !== '') {
         switch (key) {
+          case 'quick':
+            if (tag.toLowerCase().indexOf(val.toLowerCase()) === -1 &&
+                message.toLowerCase().indexOf(val.toLowerCase()) === -1) {
+              ret = false;
+            }
+            break;
           case 'pid':
             let {pid} = row;
             text = pid;
@@ -116,14 +107,12 @@ class Filter {
             }
             break;
           case 'tag':
-            let {tag} = row;
-            if (tag.toLowerCase().indexOf(val) === -1) {
+            if (tag.toLowerCase().indexOf(val.toLowerCase()) === -1) {
               ret = false;
             }
             break;
           case 'message':
-            let {message} = row;
-            if (message.toLowerCase().indexOf(val) === -1) {
+            if (message.toLowerCase().indexOf(val.toLowerCase()) === -1) {
               ret = false;
             }
             break;
@@ -134,16 +123,6 @@ class Filter {
     });
 
     return ret;
-  }
-
-  _needToAddByQuick(row) {
-    const {tag, message} = row;
-    const filterText = this._quickFilter.toLowerCase();
-    if (message.toLowerCase().indexOf(filterText) !== -1 ||
-        tag.toLowerCase().indexOf(filterText) !== -1) {
-      return true;
-    }
-    return false;
   }
 }
 

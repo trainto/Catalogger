@@ -6,14 +6,17 @@ import {dataWrapper} from './datawrapper'
 class Dispatcher {
   constructor() {
     this.adbWrapper = new ADBWrapper();
-    this.filterTimer = undefined;
 
-    this.header = undefined;
-
+    this.setLogTable = this.setLogTable.bind(this);
     this.setHeader = this.setHeader.bind(this);
+
     this.onClickStartStop = this.onClickStartStop.bind(this);
     this.onClickClear = this.onClickClear.bind(this);
     this.onAutoscrollChanged = this.onAutoscrollChanged.bind(this);
+    this.onDoubleClickHeader = this.onDoubleClickHeader.bind(this);
+
+    this.preventEnter = this.preventEnter.bind(this);
+    this.onFilterChanged = this.onFilterChanged.bind(this);
   }
 
 
@@ -73,7 +76,7 @@ class Dispatcher {
       this.adbWrapper.stopAdbLogcat();
     }
 
-      this._focusToLogTable();
+    this._focusToLogTable();
   }
 
   onClickClear() {
@@ -108,32 +111,30 @@ class Dispatcher {
     }
   }
 
-  onFilterChanged(filter, changed) {
-    clearTimeout(this.filterTimer);
-    this.filter = setTimeout(() => {
-      switch (filter) {
-        case 'V':
-        case 'W':
-        case 'D':
-        case 'I':
-        case 'E':
-          dataWrapper.changeFilter(new Map().set('level', [filter, changed]));
+  onFilterChanged(filterBy, changed) {
+    switch (filterBy) {
+      case 'V':
+      case 'W':
+      case 'D':
+      case 'I':
+      case 'E':
+        dataWrapper.changeFilter(
+            new Map().set('level', [filterBy, changed]), () => {
           this.logTable.resetData.call(this.logTable);
-          break
-        default:
-          break;
-      }
-    }, 1000);
-    this._focusToLogTable()
-  }
-
-  onQuickFilterChanged(event) {
-    clearTimeout(this.filterTimer);
-    const text = event.target.value;
-    this.filterTimer = setTimeout(() => {
-      dataWrapper.changeFilter(new Map().set('quick', text));
-      this.logTable.resetData.call(this.logTable);
-    }, 1000);
+        });
+        break
+      case 'quick':
+      case 'pid':
+      case 'tid':
+      case 'tag':
+      case 'message':
+        dataWrapper.changeFilter(new Map().set(filterBy, changed), () => {
+          this.logTable.resetData.call(this.logTable);
+        });
+        break;
+      default:
+        break;
+    }
   }
 }
 

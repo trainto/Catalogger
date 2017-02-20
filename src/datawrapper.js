@@ -49,8 +49,8 @@ class DataWrapper {
     filter.clearIndexMap();
   }
 
-  changeFilter(filterBy) {
-    filter.setFilter(filterBy, this.data);
+  changeFilter(filterBy, callback) {
+    filter.setFilter(filterBy, this.data, callback);
   }
 }
 

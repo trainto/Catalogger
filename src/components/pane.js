@@ -21,8 +21,8 @@ class Pane extends React.Component {
                   <Glyphicon glyph='filter' />
                 </InputGroup.Addon>
                 <FormControl type="text" placeholder='Quick filter'
-                    onChange={dispatcher.onQuickFilterChanged.bind(dispatcher)}
-                    onKeyPress={dispatcher.preventEnter.bind(dispatcher)}/>
+                    onKeyPress={dispatcher.preventEnter}
+                    onChange={(event) => dispatcher.onFilterChanged('quick', event.target.value)}/>
               </InputGroup>
             </FormGroup>
           </form>
@@ -54,6 +54,36 @@ class Pane extends React.Component {
             }>
               Error
             </Checkbox>
+          </form>
+        </div>
+        <div>
+          <form>
+            <FormGroup bsSize="small">
+              <InputGroup>
+                <InputGroup.Addon>PID</InputGroup.Addon>
+                <FormControl type="text" placeholder='pid'
+                    onKeyPress={dispatcher.preventEnter}
+                    onChange={(event) => dispatcher.onFilterChanged('pid', event.target.value)}/>
+              </InputGroup>
+              <InputGroup>
+                <InputGroup.Addon>TID</InputGroup.Addon>
+                <FormControl type="text" placeholder='tid'
+                    onKeyPress={dispatcher.preventEnter}
+                    onChange={(event) => dispatcher.onFilterChanged('tid', event.target.value)}/>
+              </InputGroup>
+              <InputGroup>
+                <InputGroup.Addon>Tag</InputGroup.Addon>
+                <FormControl type="text" placeholder='tag'
+                    onKeyPress={dispatcher.preventEnter}
+                    onChange={(event) => dispatcher.onFilterChanged('tag', event.target.value)}/>
+              </InputGroup>
+              <InputGroup>
+                <InputGroup.Addon>Msg</InputGroup.Addon>
+                <FormControl type="text" placeholder='message'
+                    onKeyPress={dispatcher.preventEnter}
+                    onChange={(event) => dispatcher.onFilterChanged('message', event.target.value)}/>
+              </InputGroup>
+            </FormGroup>
           </form>
         </div>
       </div>
