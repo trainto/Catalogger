@@ -1,8 +1,6 @@
 'use strict'
 
-import {exec, spawn, fork} from 'child_process'
-import readline from 'readline'
-import LogParser from './logparser'
+import {exec, fork} from 'child_process'
 
 class ADBWrapper {
   constructor() {
@@ -25,28 +23,46 @@ class ADBWrapper {
     });
   }
 
+  isDeviceExisted(device, callback) {
+    this.getDevices((devices) => {
+      for (let i = 0; i < devices.length; i++) {
+        if (devices[i] === device) {
+          callback();
+        }
+      }
+    })
+  }
+
   startLogcat(device, callback) {
     this.adbLogcatParser = fork('./src/adb/adblogcatparser.js');
     let started = false;
     this.adbLogcatParser.on('message', (data) => {
+      if (data === 0) {
+        this.adbLogcatParser.kill();
+        callback('err');
+        return;
+      }
       callback('data', data);
       if (!started) {
+        started = true;
         callback('start');
       }
     });
 
     this.adbLogcatParser.on('close', (code, signal) => {
-      console.log('adbwrapper.js: adbLogcatParser process killed!');
       callback('stop')
-    })
+    });
 
     this.adbLogcatParser.send(device);
   }
 
   stopAdbLogcat() {
     if (this.adbLogcatParser) {
-      this.adbLogcatParser.kill();
-      this.adbLogcatParser = undefined;
+      this.adbLogcatParser.send('kill');
+      setTimeout(() => {
+        this.adbLogcatParser.kill();
+        this.adbLogcatParser = undefined;
+      }, 500);
     }
   }
 }

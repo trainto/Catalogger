@@ -28,10 +28,51 @@ class Dispatcher {
     logtableDiv.setAttribute('tabindex', savedTabIndex);
   }
 
-  _getDevices(devices) {
-    if (devices.length == 1) {
-      return devices[0];
+  _getDeviceToStart(devices) {
+    if (devices.length === 0) {
+      return;
     }
+
+    if (devices.length === 1) {
+      return devices[0];
+    } else {
+
+    }
+  }
+
+  _startLogcat(device) {
+    this.header.setState({
+      selectedDevice: device
+    });
+    dataWrapper.resetData();
+    this.adbWrapper.startLogcat(device, (what, data) => {
+      switch (what) {
+        case 'data':
+          dataWrapper.push(data);
+          this.logTable.resetData.call(this.logTable);
+          break;
+        case 'stop':
+          this.header.setState({isStarted: false});
+          break;
+        case 'start':
+          this.header.setState({
+            isStarted: true,
+            isLoading: false
+          });
+          break;
+        case 'err':
+          this.header.setState({
+            isStarted: false,
+            isLoading: false,
+            selectedDevice: undefined
+          });
+          break;
+        default:
+          break;
+      }
+    });
+
+    this.header.setState({isLoading: true})
   }
 
   setLogTable(table) {
@@ -42,36 +83,35 @@ class Dispatcher {
     this.header = header;
   }
 
+  getDevices(callback) {
+    this.adbWrapper.getDevices((devices) => {
+      callback(devices);
+    });
+  }
+
 
   /* ===========================================================================
   From Header
   ============================================================================*/
   onClickStartStop(event) {
     if (!this.header.state.isStarted) {
-      this.adbWrapper.getDevices((devices) => {
-        const device = this._getDevices(devices);
-        dataWrapper.resetData();
-        this.adbWrapper.startLogcat(device, (what, data) => {
-          switch (what) {
-            case 'data':
-              dataWrapper.push(data);
-              this.logTable.resetData.call(this.logTable);
-              break;
-            case 'stop':
-              this.header.setState({isStarted: false});
-              break;
-            case 'start':
-              this.header.setState({
-                isStarted: true,
-                isLoading: false
-              });
-              break;
-            default:
-              break;
+      let device;
+      if (this.header.state.selectedDevice) {
+        device = this.header.state.selectedDevice;
+      } else {
+        this.adbWrapper.getDevices((devices) => {
+          device = this._getDeviceToStart(devices);
+          if (device) {
+            this._startLogcat(device);
           }
         });
-        this.header.setState({isLoading: true})
-      });
+      }
+
+      if (device) {
+        this.adbWrapper.isDeviceExisted(device, () => {
+          this._startLogcat(device);
+        });
+      }
     } else {
       this.adbWrapper.stopAdbLogcat();
     }
@@ -92,11 +132,14 @@ class Dispatcher {
   }
 
   onDoubleClickHeader(event) {
-    const currentWindow = window.require('electron').remote.getCurrentWindow();
-    if (currentWindow.isMaximized()) {
-      currentWindow.unmaximize();
-    } else {
-      currentWindow.maximize();
+    if (event.target.getAttribute('id') === 'header') {
+      const currentWindow =
+          window.require('electron').remote.getCurrentWindow();
+      if (currentWindow.isMaximized()) {
+        currentWindow.unmaximize();
+      } else {
+        currentWindow.maximize();
+      }
     }
   }
 

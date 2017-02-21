@@ -18,6 +18,11 @@
   padding-right: 10px;
 }
 
+#filter-other .input-group-addon {
+  font-family: menlo, "DejaVu Sans Mono", "Lucida Console", monospace;
+  font-size: 11px;
+}
+
 .checkbox+.checkbox {
   margin-top: -10px;
 }

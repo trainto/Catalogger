@@ -9,14 +9,19 @@
 }
 
 #header > #command-buttons {
-  position: fixed;
+  position: relative;;
   top: 25px;
   -webkit-app-region: no-drag;
 }
+
 #header > #command-buttons > .btn {
   margin-left: 5px;
   outline: none;
   background-color: rgb(240, 240, 240);
+}
+
+#command-buttons > .dropdown {
+  margin-left: 5px;
 }
 
 #header > #autoscroll {

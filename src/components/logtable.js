@@ -121,8 +121,8 @@ class LogTable extends React.Component {
           rowsCount={dataToShow.getSize()}
           rowClassNameGetter={this._rowClassNameGetter}
           scrollToRow={this.state.currentIndex}
-          rowHeight={17}
-          headerHeight={17}
+          rowHeight={16}
+          headerHeight={16}
           width={dimensions.width}
           height={dimensions.height}
           onColumnResizeEndCallback={this._onColumnResizeEndCallback}

@@ -5,10 +5,22 @@ const pattern = /(\d\d-\d\d)\s+(\d\d:\d\d:\d\d.\d\d\d)\s+(\d+)\s+(\d+)\s+([a-zA-
 const spawn = require('child_process').spawn;
 const rl = require('readline');
 
-process.on('message', (device) => {
+let logcat;
+
+function startLogcat(device) {
   let data = [];
   // require('child_process').exec('adb', ['-s', device, 'logcat', '-c']);
-  const logcat = spawn('adb', ['-s', device, 'logcat']);
+  logcat = spawn('adb', ['-s', device, 'logcat']);
+  logcat.on('error', (err) => {
+    console.log('adblogcatparser.js: ' + 'err - ' + err);
+  });
+  logcat.on('exit', (code) => {
+    console.log('adblogcatparser.js: ' + 'exit with ' + code);
+    if (code === 0) {
+      process.send(code);
+    }
+  });
+
   rl.createInterface({
     input: logcat.stdout,
     terminal: false
@@ -32,4 +44,12 @@ process.on('message', (device) => {
       data = [];
     }
   }, 1000);
+}
+
+process.on('message', (msg) => {
+  if (msg === 'kill' && logcat !== undefined) {
+    logcat.kill();
+    return;
+  }
+  startLogcat(msg);
 });
