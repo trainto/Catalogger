@@ -21,6 +21,8 @@ function createWindow () {
   win.on('closed', () => {
     win = null;
   })
+
+  require('./menu');
 }
 
 app.on('ready', createWindow);

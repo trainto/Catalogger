@@ -1,9 +1,10 @@
+const path = require('path');
+
 module.exports = {
-  context: __dirname + '/app',
-  entry: "./entry.js",
+  entry: './renderer/entry.js',
   output: {
-    path: __dirname + '/app/build',
-    publicPath: __dirname + '/build/',
+    path: path.join(__dirname, 'app', 'dist'),
+    publicPath: path.join(__dirname, 'app', 'dist/'),
     filename: './bundle.js',
   },
   module: {
@@ -25,5 +26,9 @@ module.exports = {
       }
     ]
   },
-  target: 'node'
+  target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
+  }
 }

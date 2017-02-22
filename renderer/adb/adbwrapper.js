@@ -1,6 +1,7 @@
 'use strict'
 
 import {exec, fork} from 'child_process'
+import path from 'path'
 
 class ADBWrapper {
   constructor() {
@@ -34,7 +35,7 @@ class ADBWrapper {
   }
 
   startLogcat(device, callback) {
-    this.adbLogcatParser = fork('./src/adb/adblogcatparser.js');
+    this.adbLogcatParser = fork(path.join(__dirname, 'adblogcatparser'));
     let started = false;
     this.adbLogcatParser.on('message', (data) => {
       if (data === 0) {
