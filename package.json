@@ -7,7 +7,7 @@
   },
   "license": "MIT",
   "version": "0.5.0",
-  "main": "./src/main.js",
+  "main": "./app/main.js",
   "scripts": {
     "electron": "./node_modules/electron/cli.js ./",
     "webpack": "./node_modules/webpack/bin/webpack.js ./entry.js bundle.js",
