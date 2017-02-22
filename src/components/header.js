@@ -49,6 +49,7 @@ class Header extends React.Component {
     this.setState({
       selectedDevice: device
     });
+    dispatcher.focusToLogTable();
   }
 
   getSelectedDevice() {

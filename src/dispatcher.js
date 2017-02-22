@@ -20,7 +20,7 @@ class Dispatcher {
   }
 
 
-  _focusToLogTable() {
+  focusToLogTable() {
     const logtableDiv = document.getElementById("logtable");
     const savedTabIndex = logtableDiv.getAttribute('tabindex');
     logtableDiv.setAttribute('tabindex', '-1');
@@ -116,19 +116,19 @@ class Dispatcher {
       this.adbWrapper.stopAdbLogcat();
     }
 
-    this._focusToLogTable();
+    this.focusToLogTable();
   }
 
   onClickClear() {
     this.logTable.clearTable.call(this.logTable);
 
-    this._focusToLogTable();
+    this.focusToLogTable();
   }
 
   onAutoscrollChanged(event) {
     this.logTable.setAutoScroll(event.target.checked);
 
-    this._focusToLogTable();
+    this.focusToLogTable();
   }
 
   onDoubleClickHeader(event) {
@@ -150,7 +150,7 @@ class Dispatcher {
   preventEnter(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
-      this._focusToLogTable();
+      this.focusToLogTable();
     }
   }
 

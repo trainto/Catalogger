@@ -76,6 +76,9 @@ class LogTable extends React.Component {
   }
 
   setAutoScroll(enabled) {
+    if (enabled) {
+      this.scrollToEnd();
+    }
     this.autoScroll = enabled;
   }
 
@@ -101,9 +104,8 @@ class LogTable extends React.Component {
   }
 
   scrollToEnd() {
-    const endRow = this.state.dataToShow.getSize();
     this.setState({
-      currentIndex: endRow
+      currentIndex: this.state.dataToShow.getSize()
     });
   }
 
