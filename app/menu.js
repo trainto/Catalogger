@@ -1,64 +1,34 @@
-const {app, Menu} = require('electron');
+'use strict'
+
+const {app, Menu, dialog, BrowserWindow} = require('electron');
 
 const template = [
   {
-    label: 'Edit',
+    label: 'File',
     submenu: [
       {
-        role: 'undo'
-      },
-      {
-        role: 'redo'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'cut'
-      },
-      {
-        role: 'copy'
-      },
-      {
-        role: 'paste'
-      },
-      {
-        role: 'pasteandmatchstyle'
-      },
-      {
-        role: 'delete'
-      },
-      {
-        role: 'selectall'
+        label: 'Open...',
+        accelerator: 'CmdOrCtrl+O',
+        click: function() {
+          const focusedWindow = BrowserWindow.getFocusedWindow();
+          if (focusedWindow) {
+            const file = dialog.showOpenDialog({properties: ['openFile']});
+            if (file) {
+              focusedWindow.webContents.send('file-open', file[0]);
+            }
+          }
+        }
       }
     ]
   },
   {
-    label: 'View',
+    label: 'view',
     submenu: [
       {
         role: 'reload'
       },
       {
         role: 'toggledevtools'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'resetzoom'
-      },
-      {
-        role: 'zoomin'
-      },
-      {
-        role: 'zoomout'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'togglefullscreen'
       }
     ]
   },
@@ -118,23 +88,7 @@ if (process.platform === 'darwin') {
       }
     ]
   })
-  // Edit menu.
-  template[1].submenu.push(
-    {
-      type: 'separator'
-    },
-    {
-      label: 'Speech',
-      submenu: [
-        {
-          role: 'startspeaking'
-        },
-        {
-          role: 'stopspeaking'
-        }
-      ]
-    }
-  )
+
   // Window menu.
   template[3].submenu = [
     {

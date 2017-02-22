@@ -76,6 +76,14 @@ class Dispatcher {
     this.header.setState({isLoading: true})
   }
 
+  openFile(file) {
+    const logFileParser = new LogFileParser();
+    logFileParser.parseFile(file, (result) => {
+      dataWrapper.push(result);
+      this.logTable.resetData.call(this.logTable);
+    });
+  }
+
   setLogTable(table) {
     this.logTable = table;
   }
@@ -186,12 +194,7 @@ class Dispatcher {
   From Pane
   ============================================================================*/
   onDrop(event) {
-    const logFileParser = new LogFileParser();
-    logFileParser.parseFile(event.dataTransfer.files[0].path, (result) => {
-      dataWrapper.push(result);
-      console.log(this);
-      this.logTable.resetData.call(this.logTable);
-    });
+    this.openFile(event.dataTransfer.files[0].path);
   }
 }
 
