@@ -2,6 +2,7 @@
 
 import ADBWrapper from './adb/adbwrapper'
 import {dataWrapper} from './datawrapper'
+import LogFileParser from './adb/logfileparser'
 
 class Dispatcher {
   constructor() {
@@ -178,6 +179,19 @@ class Dispatcher {
       default:
         break;
     }
+  }
+
+
+ /* ===========================================================================
+  From Pane
+  ============================================================================*/
+  onDrop(event) {
+    const logFileParser = new LogFileParser();
+    logFileParser.parseFile(event.dataTransfer.files[0].path, (result) => {
+      dataWrapper.push(result);
+      console.log(this);
+      this.logTable.resetData.call(this.logTable);
+    });
   }
 }
 

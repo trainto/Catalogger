@@ -4,7 +4,7 @@ import React from 'react'
 // import update from 'react-addons-update'
 import {Table, Column, Cell} from 'fixed-data-table-2'
 import Measure from 'react-measure'
-import LogParser from '../adb/logparser'
+import {dispatcher} from '../dispatcher'
 import {dataWrapper} from '../datawrapper'
 import Filter from '../filter'
 import './styles/fixed-data-table.css'
@@ -61,16 +61,6 @@ class LogTable extends React.Component {
     }));
   }
 
-  _onDrop(ev) {
-    const logParser = new LogParser();
-    logParser.parse(ev.dataTransfer.files[0].path, (result) => {
-      this.logData.setData(result);
-      this.setState({
-        dataToShow: this.logData
-      });
-    });
-  }
-
   _rowClassNameGetter(index) {
     return 'Level' + this.state.dataToShow.getObjectAt(index).level;
   }
@@ -117,7 +107,7 @@ class LogTable extends React.Component {
           this.setState({dimensions})
         }}
       >
-        <div id="logtable" onDrop={this._onDrop.bind(this)}>
+        <div id="logtable" onDrop={dispatcher.onDrop.bind(dispatcher)}>
         <Table
           ref={(table) => this.logTable = table}
           rowsCount={dataToShow.getSize()}
