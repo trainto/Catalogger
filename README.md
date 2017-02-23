@@ -1,4 +1,4 @@
-# ALogX
+# Catalogger
 Android logcat viewer written in HTML, CSS and Javascript
 
 ## Getting started
