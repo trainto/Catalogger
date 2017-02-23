@@ -10,7 +10,8 @@ class ADBWrapper {
   }
 
   getDevices(callback) {
-    exec('adb devices', (error, stdout, stderr) => {
+    exec(path.join(__dirname, 'static', '/') +
+        'adb devices', (error, stdout, stderr) => {
       const devices = [];
       const deviceList = stdout.toString().split('\n');
       const pattern = /(.*)\tdevice/;

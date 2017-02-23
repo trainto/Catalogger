@@ -9,7 +9,7 @@ const template = [
       {
         label: 'Open...',
         accelerator: 'CmdOrCtrl+O',
-        click: function() {
+        click () {
           const focusedWindow = BrowserWindow.getFocusedWindow();
           if (focusedWindow) {
             const file = dialog.showOpenDialog({properties: ['openFile']});
@@ -47,8 +47,11 @@ const template = [
     role: 'help',
     submenu: [
       {
-        label: 'Learn More',
-        click () { require('electron').shell.openExternal('http://electron.atom.io') }
+        label: 'Site',
+        click () {
+          require('electron').shell.openExternal(
+            'https://github.com/trainto/Catalogger');
+        }
       }
     ]
   }

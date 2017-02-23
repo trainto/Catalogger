@@ -11,7 +11,19 @@
   "scripts": {
     "app": "./node_modules/electron/cli.js ./",
     "webpack": "./node_modules/webpack/bin/webpack.js ./entry.js bundle.js",
-    "watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch"
+    "watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch",
+    "dist": "webpack && build"
+  },
+  "build": {
+    "appId": "me.yoursun.catalogger",
+    "asar": false,
+    "files": [
+      "app/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    }
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
@@ -29,6 +41,7 @@
     "babel-preset-stage-3": "^6.22.0",
     "css-loader": "^0.26.1",
     "electron": "^1.4.15",
+    "electron-builder": "^13.11.1",
     "file-loader": "^0.10.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

@@ -4,13 +4,15 @@ const pattern = /(\d\d-\d\d)\s+(\d\d:\d\d:\d\d.\d\d\d)\s+(\d+)\s+(\d+)\s+([a-zA-
 
 const spawn = require('child_process').spawn;
 const rl = require('readline');
+const path = require('path');
 
 let logcat;
 
 function startLogcat(device) {
   let data = [];
   // require('child_process').exec('adb', ['-s', device, 'logcat', '-c']);
-  logcat = spawn('adb', ['-s', device, 'logcat']);
+  logcat = spawn(path.join(__dirname, 'static', '/')
+      + 'adb', ['-s', device, 'logcat']);
   logcat.on('error', (err) => {
     console.log('adblogcatparser.js: ' + 'err - ' + err);
   });
