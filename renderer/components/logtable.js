@@ -1,7 +1,6 @@
 'use strict'
 
 import React from 'react'
-// import update from 'react-addons-update'
 import {Table, Column, Cell} from 'fixed-data-table-2'
 import Measure from 'react-measure'
 import {dispatcher} from '../dispatcher'
@@ -130,6 +129,7 @@ class LogTable extends React.Component {
             )}
             width={columnWidths.time}
             isResizable={true}
+            allowCellsRecycling={true}
           />
           <Column
             columnKey="pid"
@@ -141,6 +141,7 @@ class LogTable extends React.Component {
             )}
             width={columnWidths.pid}
             isResizable={true}
+            allowCellsRecycling={true}
           />
           <Column
             columnKey="tid"
@@ -152,6 +153,7 @@ class LogTable extends React.Component {
             )}
             width={columnWidths.tid}
             isResizable={true}
+            allowCellsRecycling={true}
           />
           <Column
             columnKey="level"
@@ -163,6 +165,7 @@ class LogTable extends React.Component {
             )}
             width={columnWidths.level}
             isResizable={true}
+            allowCellsRecycling={true}
           />
           <Column
             columnKey="tag"
@@ -174,6 +177,7 @@ class LogTable extends React.Component {
             )}
             width={columnWidths.tag}
             isResizable={true}
+            allowCellsRecycling={true}
           />
           <Column
             columnKey="message"
@@ -185,6 +189,7 @@ class LogTable extends React.Component {
             )}
             width={columnWidths.message}
             isResizable={true}
+            allowCellsRecycling={true}
           />
         </Table>
         </div>
