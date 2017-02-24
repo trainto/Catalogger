@@ -55,3 +55,10 @@ process.on('message', (msg) => {
   }
   startLogcat(msg);
 });
+
+process.on('uncaughtException', (err) => {
+  console.log('adblogcatparser.js: uncaughtException - ' + err);
+  if (logcat) {
+    logcat.kill();
+  }
+});
