@@ -61,14 +61,18 @@ class Header extends React.Component {
     let isLoading = this.state.isLoading;
     return (
       <div id="header" onDoubleClick={dispatcher.onDoubleClickHeader}>
-        <div id="command-buttons" onDoubleClick={(event) => {event.preventDefault()}}>
+        <div id="command-buttons"
+            style={process.platform === 'darwin' ? {top: '25px'} : undefined}
+            onDoubleClick={(event) => {event.preventDefault()}}>
           <Button onClick={dispatcher.onClickClear}>
             <Glyphicon glyph="trash"/>
           </Button>
           <Button onClick={dispatcher.onClickStartStop} disabled={isLoading}>
             {isLoading ? <Glyphicon glyph="hourglass"/> : (isStarted ? <Glyphicon bsSize="large"glyph="stop"/> : <Glyphicon glyph="play"/>)}
           </Button>
-          <Dropdown id="dropdown-devices" disabled={isStarted} onToggle={(event) => this._createDeviceList(event)} onSelect={(event) => this._selectDevice(event)}>
+          <Dropdown id="dropdown-devices" disabled={isStarted}
+              onToggle={(event) => this._createDeviceList(event)}
+              onSelect={(event) => this._selectDevice(event)}>
             <Dropdown.Toggle>{this.state.selectedDevice ? this.state.selectedDevice : this.state.textForDeviceDropdown}</Dropdown.Toggle>
             <Dropdown.Menu>
               {[this.state.deviceList]}

@@ -11,7 +11,7 @@
 #header > #command-buttons {
   position: relative;
   display: inline-block;
-  top: 25px;
+  top: 18px;
   -webkit-app-region: no-drag;
 }
 
