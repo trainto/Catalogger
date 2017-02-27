@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import {Button, Glyphicon, form, Checkbox, Dropdown, MenuItem} from 'react-bootstrap'
+import {Button, Glyphicon, form, Checkbox, Dropdown, MenuItem, Badge} from 'react-bootstrap'
 import {dispatcher} from '../dispatcher'
 import './styles/header.css'
 import '../../vendor/bootstrap/css/bootstrap.min.css'
@@ -14,7 +14,8 @@ class Header extends React.Component {
       isLoading: false,
       selectedDevice: undefined,
       textForDeviceDropdown: 'No devices',
-      deviceList: []
+      deviceList: [],
+      rows: 0
     };
   }
 
@@ -56,6 +57,12 @@ class Header extends React.Component {
     return this.state.selectedDevice;
   }
 
+  setRowsNumber(rowsNumber) {
+    this.setState({
+      rows: rowsNumber
+    });
+  }
+
   render() {
     let isStarted = this.state.isStarted;
     let isLoading = this.state.isLoading;
@@ -68,12 +75,16 @@ class Header extends React.Component {
             <Glyphicon glyph="trash"/>
           </Button>
           <Button onClick={dispatcher.onClickStartStop} disabled={isLoading}>
-            {isLoading ? <Glyphicon glyph="hourglass"/> : (isStarted ? <Glyphicon bsSize="large"glyph="stop"/> : <Glyphicon glyph="play"/>)}
+            {isLoading ? <Glyphicon glyph="hourglass"/> : (isStarted ?
+              <Glyphicon bsSize="large"glyph="stop"/> : <Glyphicon glyph="play"/>)}
           </Button>
           <Dropdown id="dropdown-devices" disabled={isStarted}
               onToggle={(event) => this._createDeviceList(event)}
               onSelect={(event) => this._selectDevice(event)}>
-            <Dropdown.Toggle>{this.state.selectedDevice ? this.state.selectedDevice : this.state.textForDeviceDropdown}</Dropdown.Toggle>
+            <Dropdown.Toggle>
+              {this.state.selectedDevice ?
+                this.state.selectedDevice : this.state.textForDeviceDropdown}
+            </Dropdown.Toggle>
             <Dropdown.Menu>
               {[this.state.deviceList]}
             </Dropdown.Menu>
@@ -85,6 +96,9 @@ class Header extends React.Component {
               Auto scroll
             </Checkbox>
           </form>
+        </div>
+        <div id="status-bar">
+          <p>rows: <Badge>{this.state.rows}</Badge></p>
         </div>
       </div>
     );

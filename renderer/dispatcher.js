@@ -51,6 +51,7 @@ class Dispatcher {
         case 'data':
           dataWrapper.push(data);
           this.logTable.resetData.call(this.logTable);
+          this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
           break;
         case 'stop':
           this.header.setState({isStarted: false});
@@ -58,7 +59,8 @@ class Dispatcher {
         case 'start':
           this.header.setState({
             isStarted: true,
-            isLoading: false
+            isLoading: false,
+            rows: 0
           });
           break;
         case 'err':
@@ -81,6 +83,7 @@ class Dispatcher {
     logFileParser.parseFile(file, (result) => {
       dataWrapper.push(result);
       this.logTable.resetData.call(this.logTable);
+      this.header.setRowsNumber.call(this.header, result.length);
     });
   }
 
@@ -130,6 +133,7 @@ class Dispatcher {
 
   onClickClear() {
     this.logTable.clearTable.call(this.logTable);
+    this.header.setRowsNumber.call(this.header, 0);
 
     this.focusToLogTable();
   }
@@ -173,6 +177,7 @@ class Dispatcher {
         dataWrapper.changeFilter(
             new Map().set('level', [filterBy, changed]), () => {
           this.logTable.resetData.call(this.logTable);
+          this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
         });
         break
       case 'quick':
@@ -182,6 +187,7 @@ class Dispatcher {
       case 'message':
         dataWrapper.changeFilter(new Map().set(filterBy, changed), () => {
           this.logTable.resetData.call(this.logTable);
+          this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
         });
         break;
       default:
