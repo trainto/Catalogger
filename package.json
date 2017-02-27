@@ -12,6 +12,7 @@
     "app": "./node_modules/electron/cli.js ./",
     "webpack": "./node_modules/webpack/bin/webpack.js ./entry.js bundle.js",
     "watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch",
+    "pack": "webpack && build --dir",
     "dist": "webpack && build"
   },
   "build": {
