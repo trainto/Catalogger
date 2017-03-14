@@ -1,4 +1,4 @@
-'user strcit'
+'user strcit';
 
 class Filter {
   constructor() {
@@ -37,10 +37,10 @@ class Filter {
     filterBy.forEach((val, key) => {
       if (key === 'level') {
         if (val[1]) { // Add Level
-          this._filterState.set(key, this._filterState.get(key).concat(val[0]))
+          this._filterState.set(key, this._filterState.get(key).concat(val[0]));
         } else { // Remove Level
           this._filterState.set(
-            key, this._filterState.get(key).replace(val[0], ''))
+            key, this._filterState.get(key).replace(val[0], ''));
         }
       } else {
         this._filterState.set(key, val);
@@ -60,9 +60,9 @@ class Filter {
     clearTimeout(this._filterTimer);
     this._filterTimer = setTimeout(() => {
       // if (this.filterOn) {
-        this.indexMap = [];
-        this.addRowsIfNeeded(0, data);
-        callback();
+      this.indexMap = [];
+      this.addRowsIfNeeded(0, data);
+      callback();
       // }
     }, 1500);
   }
@@ -81,42 +81,45 @@ class Filter {
     this._filterState.forEach((val, key) => {
       if (val !== '') {
         switch (key) {
-          case 'quick':
-            if (tag.toLowerCase().indexOf(val.toLowerCase()) === -1 &&
-                message.toLowerCase().indexOf(val.toLowerCase()) === -1) {
-              ret = false;
-            }
-            break;
-          case 'pid':
-            let {pid} = row;
-            if (pid.toLowerCase().indexOf(val) === -1) {
-              ret = false;
-            }
-            break;
-          case 'tid':
-            let {tid} = row;
-            if (tid.toLowerCase().indexOf(val) === -1) {
-              ret = false;
-            }
-            break;
-          case 'level':
-            let {level} = row;
-            if (val.indexOf(level) === -1) {
-              ret = false;
-            }
-            break;
-          case 'tag':
-            if (tag.toLowerCase().indexOf(val.toLowerCase()) === -1) {
-              ret = false;
-            }
-            break;
-          case 'message':
-            if (message.toLowerCase().indexOf(val.toLowerCase()) === -1) {
-              ret = false;
-            }
-            break;
-          default:
-            break;
+        case 'quick':
+          if (tag.toLowerCase().indexOf(val.toLowerCase()) === -1 &&
+              message.toLowerCase().indexOf(val.toLowerCase()) === -1) {
+            ret = false;
+          }
+          break;
+        case 'pid': {
+          let {pid} = row;
+          if (pid.toLowerCase().indexOf(val) === -1) {
+            ret = false;
+          }
+          break;
+        }
+        case 'tid': {
+          let {tid} = row;
+          if (tid.toLowerCase().indexOf(val) === -1) {
+            ret = false;
+          }
+          break;
+        }
+        case 'level': {
+          let {level} = row;
+          if (val.indexOf(level) === -1) {
+            ret = false;
+          }
+          break;
+        }
+        case 'tag':
+          if (tag.toLowerCase().indexOf(val.toLowerCase()) === -1) {
+            ret = false;
+          }
+          break;
+        case 'message':
+          if (message.toLowerCase().indexOf(val.toLowerCase()) === -1) {
+            ret = false;
+          }
+          break;
+        default:
+          break;
         }
       }
     });
@@ -125,4 +128,4 @@ class Filter {
   }
 }
 
-export const filter = new Filter()
+export const filter = new Filter();

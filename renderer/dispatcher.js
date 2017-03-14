@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-import ADBWrapper from './adb/adbwrapper'
-import {dataWrapper} from './datawrapper'
-import LogFileParser from './adb/logfileparser'
+import ADBWrapper from './adb/adbwrapper';
+import {dataWrapper} from './datawrapper';
+import LogFileParser from './adb/logfileparser';
 
 class Dispatcher {
   constructor() {
@@ -22,7 +22,7 @@ class Dispatcher {
 
 
   focusToLogTable() {
-    const logtableDiv = document.getElementById("logtable");
+    const logtableDiv = document.getElementById('logtable');
     const savedTabIndex = logtableDiv.getAttribute('tabindex');
     logtableDiv.setAttribute('tabindex', '-1');
     logtableDiv.focus();
@@ -48,34 +48,34 @@ class Dispatcher {
     dataWrapper.resetData();
     this.adbWrapper.startLogcat(device, (what, data) => {
       switch (what) {
-        case 'data':
-          dataWrapper.push(data);
-          this.logTable.resetData.call(this.logTable);
-          this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
-          break;
-        case 'stop':
-          this.header.setState({isStarted: false});
-          break;
-        case 'start':
-          this.header.setState({
-            isStarted: true,
-            isLoading: false,
-            rows: 0
-          });
-          break;
-        case 'err':
-          this.header.setState({
-            isStarted: false,
-            isLoading: false,
-            selectedDevice: undefined
-          });
-          break;
-        default:
-          break;
+      case 'data':
+        dataWrapper.push(data);
+        this.logTable.resetData.call(this.logTable);
+        this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
+        break;
+      case 'stop':
+        this.header.setState({isStarted: false});
+        break;
+      case 'start':
+        this.header.setState({
+          isStarted: true,
+          isLoading: false,
+          rows: 0
+        });
+        break;
+      case 'err':
+        this.header.setState({
+          isStarted: false,
+          isLoading: false,
+          selectedDevice: undefined
+        });
+        break;
+      default:
+        break;
       }
     });
 
-    this.header.setState({isLoading: true})
+    this.header.setState({isLoading: true});
   }
 
   openFile(file) {
@@ -169,29 +169,29 @@ class Dispatcher {
 
   onFilterChanged(filterBy, changed) {
     switch (filterBy) {
-      case 'V':
-      case 'W':
-      case 'D':
-      case 'I':
-      case 'E':
-        dataWrapper.changeFilter(
-            new Map().set('level', [filterBy, changed]), () => {
-          this.logTable.resetData.call(this.logTable);
-          this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
-        });
-        break
-      case 'quick':
-      case 'pid':
-      case 'tid':
-      case 'tag':
-      case 'message':
-        dataWrapper.changeFilter(new Map().set(filterBy, changed), () => {
-          this.logTable.resetData.call(this.logTable);
-          this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
-        });
-        break;
-      default:
-        break;
+    case 'V':
+    case 'W':
+    case 'D':
+    case 'I':
+    case 'E':
+      dataWrapper.changeFilter(
+          new Map().set('level', [filterBy, changed]), () => {
+            this.logTable.resetData.call(this.logTable);
+            this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
+          });
+      break;
+    case 'quick':
+    case 'pid':
+    case 'tid':
+    case 'tag':
+    case 'message':
+      dataWrapper.changeFilter(new Map().set(filterBy, changed), () => {
+        this.logTable.resetData.call(this.logTable);
+        this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
+      });
+      break;
+    default:
+      break;
     }
   }
 

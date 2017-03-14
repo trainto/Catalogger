@@ -1,13 +1,12 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import {Table, Column, Cell} from 'fixed-data-table-2'
-import Measure from 'react-measure'
-import {dispatcher} from '../dispatcher'
-import {dataWrapper} from '../datawrapper'
-import Filter from '../filter'
-import './styles/fixed-data-table.css'
-import './styles/logtable.css'
+import React from 'react';
+import {Table, Column, Cell} from 'fixed-data-table-2';
+import Measure from 'react-measure';
+import {dispatcher} from '../dispatcher';
+import {dataWrapper} from '../datawrapper';
+import './styles/fixed-data-table.css';
+import './styles/logtable.css';
 
 class LogTable extends React.Component {
   constructor(props) {
@@ -103,7 +102,7 @@ class LogTable extends React.Component {
     return (
       <Measure
         onMeasure={(dimensions) => {
-          this.setState({dimensions})
+          this.setState({dimensions});
         }}
       >
         <div id="logtable" onDrop={dispatcher.onDrop.bind(dispatcher)}>
@@ -198,4 +197,4 @@ class LogTable extends React.Component {
   }
 }
 
-export default LogTable
+export default LogTable;

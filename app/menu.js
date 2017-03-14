@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const {app, Menu, dialog, BrowserWindow} = require('electron');
 
@@ -73,7 +73,7 @@ const template = [
       }
     ]
   }
-]
+];
 
 if (process.platform === 'darwin') {
   template.unshift({
@@ -108,7 +108,7 @@ if (process.platform === 'darwin') {
         role: 'quit'
       }
     ]
-  })
+  });
 
   // Window menu.
   template[3].submenu = [
@@ -133,7 +133,7 @@ if (process.platform === 'darwin') {
       label: 'Bring All to Front',
       role: 'front'
     }
-  ]
+  ];
 }
 
 const menu = Menu.buildFromTemplate(template);

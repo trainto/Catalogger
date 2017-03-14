@@ -1,9 +1,9 @@
-'user strict'
+'user strict';
 
-import React from 'react'
-import {form, FormGroup, InputGroup, FormControl, Glyphicon, Checkbox} from 'react-bootstrap'
-import {dispatcher} from '../dispatcher'
-import './styles/pane.css'
+import React from 'react';
+import {form, FormGroup, InputGroup, FormControl, Glyphicon, Checkbox} from 'react-bootstrap';
+import {dispatcher} from '../dispatcher';
+import './styles/pane.css';
 
 class Pane extends React.Component {
   constructor(props) {
@@ -87,8 +87,8 @@ class Pane extends React.Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Pane
+export default Pane;

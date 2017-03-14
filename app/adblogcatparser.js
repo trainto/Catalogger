@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const pattern = /(\d\d-\d\d)\s+(\d\d:\d\d:\d\d.\d\d\d)\s+(\d+)\s+(\d+)\s+([a-zA-Z])\s+([^\s.]+)(\s+)?:\s+(.*)/;
 
@@ -33,7 +33,7 @@ function startLogcat(device) {
     let match = pattern.exec(line);
     if (match) {
       data.push({
-        time: match[1] + " " + match[2],
+        time: match[1] + ' ' + match[2],
         pid: match[3],
         tid: match[4],
         level: match[5],
@@ -43,7 +43,7 @@ function startLogcat(device) {
     }
   });
 
-  const interval = setInterval(() => {
+  setInterval(() => {
     if (data.length !== 0) {
       process.send(data);
       data = [];

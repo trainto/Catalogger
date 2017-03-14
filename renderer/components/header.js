@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import {Button, Glyphicon, form, Checkbox, Dropdown, MenuItem, Badge} from 'react-bootstrap'
-import {dispatcher} from '../dispatcher'
-import './styles/header.css'
-import '../../vendor/bootstrap/css/bootstrap.min.css'
+import React from 'react';
+import {Button, Glyphicon, form, Checkbox, Dropdown, MenuItem, Badge} from 'react-bootstrap';
+import {dispatcher} from '../dispatcher';
+import './styles/header.css';
+import '../../vendor/bootstrap/css/bootstrap.min.css';
 
 class Header extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class Header extends React.Component {
           }
           this.setState({
             deviceList: items
-          })
+          });
         } else {
           this.setState({
             selectedDevice: undefined,
@@ -70,7 +70,7 @@ class Header extends React.Component {
       <div id="header" onDoubleClick={dispatcher.onDoubleClickHeader}>
         <div id="command-buttons"
             style={process.platform === 'darwin' ? {top: '25px'} : undefined}
-            onDoubleClick={(event) => {event.preventDefault()}}>
+            onDoubleClick={(event) => {event.preventDefault();}}>
           <Button onClick={dispatcher.onClickClear}>
             <Glyphicon glyph="trash"/>
           </Button>
@@ -105,4 +105,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+export default Header;

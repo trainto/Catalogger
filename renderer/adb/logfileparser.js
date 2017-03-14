@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import fs from 'fs'
-import readline from 'readline'
+import fs from 'fs';
+import readline from 'readline';
 
 class LogFileParser {
   constructor() {
@@ -19,7 +19,7 @@ class LogFileParser {
       let match = this.pattern.exec(input);
       if (match) {
         result.push({
-          time: match[1] + " " + match[2],
+          time: match[1] + ' ' + match[2],
           pid: match[3],
           tid: match[4],
           level: match[5],
@@ -37,4 +37,4 @@ class LogFileParser {
   }
 }
 
-export default LogFileParser
+export default LogFileParser;

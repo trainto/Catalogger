@@ -1,9 +1,9 @@
-'use strcit'
+'use strcit';
 
-import {filter} from './filter'
+import {filter} from './filter';
 
 class DataWrapper {
-  constructor(data, filter) {
+  constructor(data) {
     this.data = data;
   }
 
@@ -54,4 +54,4 @@ class DataWrapper {
   }
 }
 
-export const dataWrapper = new DataWrapper([])
+export const dataWrapper = new DataWrapper([]);

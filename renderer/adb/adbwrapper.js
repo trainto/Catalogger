@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import {exec, fork} from 'child_process'
-import path from 'path'
+import {exec, fork} from 'child_process';
+import path from 'path';
 
 class ADBWrapper {
   constructor() {
@@ -14,7 +14,7 @@ class ADBWrapper {
     if (process.platform === 'darwin') {
       adbPath = path.join(adbPath, 'darwin');
     }
-    exec(adbPath + '/adb devices', (error, stdout, stderr) => {
+    exec(adbPath + '/adb devices', (error, stdout) => {
       const devices = [];
       const deviceList = stdout.toString().split('\n');
       const pattern = /(.*)\tdevice/;
@@ -35,7 +35,7 @@ class ADBWrapper {
           callback();
         }
       }
-    })
+    });
   }
 
   startLogcat(device, callback) {
@@ -54,8 +54,8 @@ class ADBWrapper {
       }
     });
 
-    this.adbLogcatParser.on('close', (code, signal) => {
-      callback('stop')
+    this.adbLogcatParser.on('close', () => {
+      callback('stop');
     });
 
     this.adbLogcatParser.send(device);
@@ -72,4 +72,4 @@ class ADBWrapper {
   }
 }
 
-export default ADBWrapper
+export default ADBWrapper;

@@ -20,7 +20,7 @@ function createWindow () {
 
   win.on('closed', () => {
     win = null;
-  })
+  });
 
   require('./menu');
 }
