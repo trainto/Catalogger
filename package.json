@@ -25,15 +25,6 @@
     ],
     "mac": {
       "category": "public.app-category.developer-tools"
-    },
-    "linux": {
-      "arch": [
-        "ia32",
-        "x64"
-      ],
-      "target": [
-        "deb"
-      ]
     }
   },
   "dependencies": {
@@ -52,7 +43,7 @@
     "babel-preset-stage-3": "^6.22.0",
     "css-loader": "^0.27.0",
     "electron": "^1.6.2",
-    "electron-builder": "^13.11.1",
+    "electron-builder": "^15.6.2",
     "eslint": "^3.17.1",
     "eslint-plugin-react": "^6.10.0",
     "file-loader": "^0.10.1",
