@@ -4,8 +4,8 @@ module.exports = {
   entry: './renderer/entry.js',
   output: {
     path: path.join(__dirname, 'app', 'dist'),
-    publicPath: path.join(__dirname, 'app', 'dist/'),
-    filename: './bundle.js',
+    publicPath: path.join(__dirname, 'app', 'dist'),
+    filename: 'bundle.js',
   },
   module: {
     loaders: [
@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         test: /\.(eot|svg|ttf|woff2?)$/,
-        loader: 'url-loader?limit=8192'
+        loader: 'file-loader?name=/fonts/[name].[ext]'
       }
     ]
   },
