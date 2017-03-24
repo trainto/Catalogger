@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import Header from './header'
-import Pane from './pane'
-import LogTable from './logtable'
-import {dispatcher} from '../dispatcher'
-import './styles/app.css'
+import React from 'react';
+import Header from './header';
+import Pane from './pane';
+import LogTable from './logtable';
+import {dispatcher} from '../dispatcher';
+import './styles/app.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,4 +25,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default App;

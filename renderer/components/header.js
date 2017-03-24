@@ -4,7 +4,6 @@ import React from 'react';
 import {Button, Glyphicon, form, Checkbox, Dropdown, MenuItem, Badge} from 'react-bootstrap';
 import {dispatcher} from '../dispatcher';
 import './styles/header.css';
-import '../../vendor/bootstrap/css/bootstrap.min.css';
 
 class Header extends React.Component {
   constructor(props) {
