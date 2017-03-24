@@ -81,7 +81,7 @@ class Dispatcher {
   openFile(file) {
     const logFileParser = new LogFileParser();
     logFileParser.parseFile(file, (result) => {
-      dataWrapper.push(result);
+      dataWrapper.setData(result);
       this.logTable.resetData.call(this.logTable);
       this.header.setRowsNumber.call(this.header, result.length);
     });
@@ -105,7 +105,7 @@ class Dispatcher {
   /* ===========================================================================
   From Header
   ============================================================================*/
-  onClickStartStop(event) {
+  onClickStartStop() {
     if (!this.header.state.isStarted) {
       let device;
       if (this.header.state.selectedDevice) {
@@ -200,6 +200,9 @@ class Dispatcher {
   From Pane
   ============================================================================*/
   onDrop(event) {
+    if (this.header.state.isStarted) {
+      this.adbWrapper.stopAdbLogcat();
+    }
     this.openFile(event.dataTransfer.files[0].path);
   }
 }
