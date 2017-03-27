@@ -3,6 +3,7 @@
 const {app, Menu, dialog, BrowserWindow} = require('electron');
 
 const template = [
+
   {
     label: 'File',
     submenu: [
@@ -18,6 +19,14 @@ const template = [
             }
           }
         }
+      }
+    ]
+  },
+  {
+    label: 'Edit',
+    submenu: [
+      {
+        role: 'copy'
       }
     ]
   },
@@ -111,7 +120,7 @@ if (process.platform === 'darwin') {
   });
 
   // Window menu.
-  template[3].submenu = [
+  template[4].submenu = [
     {
       label: 'Close',
       accelerator: 'CmdOrCtrl+W',
