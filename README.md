@@ -1,4 +1,5 @@
 # Catalogger
+![](http://yoursun.me/Catalogger/img/catalogger_main_screen.png)
 Android logcat viewer written in HTML, CSS and Javascript
 
 ## Getting started
