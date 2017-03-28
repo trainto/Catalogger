@@ -3,6 +3,7 @@
 import ADBWrapper from './adb/adbwrapper';
 import {dataWrapper} from './datawrapper';
 import LogFileParser from './adb/logfileparser';
+import Config from './config';
 
 class Dispatcher {
   constructor() {
@@ -18,6 +19,9 @@ class Dispatcher {
 
     this.preventEnter = this.preventEnter.bind(this);
     this.onFilterChanged = this.onFilterChanged.bind(this);
+    this.onFilterSave = this.onFilterSave.bind(this);
+
+    this.onFilterClicked = this.onFilterClicked.bind(this);
   }
 
 
@@ -98,6 +102,15 @@ class Dispatcher {
   getDevices(callback) {
     this.adbWrapper.getDevices((devices) => {
       callback(devices);
+    });
+  }
+
+  showErrDialog(msg) {
+    const {dialog} = require('electron').remote;
+    dialog.showMessageBox({
+      type: 'error',
+      title: 'Error',
+      message: msg,
     });
   }
 
@@ -195,9 +208,57 @@ class Dispatcher {
     }
   }
 
+  onFilterSetListRequired() {
+    let ret = [];
+    const config = new Config();
+    config.readFilterSet().forEach((filter) => {
+      ret.push(Object.getOwnPropertyNames(filter)[0]);
+    });
+
+    return ret;
+  }
+
+  onFilterSave(filterSetName, filterSet, onFilterSaveSucceed) {
+    const config = new Config();
+    config.writeFilterSet(filterSetName, filterSet,
+      () => {
+        onFilterSaveSucceed();
+      },
+      (err) => {
+        this.showErrDialog(err.message);
+      }
+    );
+    this.focusToLogTable();
+  }
+
+  onFilterClicked(filterName, callback) {
+    const config = new Config();
+    const filter = config.getFilterSet(filterName)[filterName];
+    callback(filter);
+
+    this.onFilterChanged('V', filter.V);
+    this.onFilterChanged('W', filter.W);
+    this.onFilterChanged('I', filter.I);
+    this.onFilterChanged('E', filter.E);
+    this.onFilterChanged('D', filter.D);
+    this.onFilterChanged('pid', filter.pid);
+    this.onFilterChanged('tid', filter.tid);
+    this.onFilterChanged('tag', filter.tag);
+    this.onFilterChanged('message', filter.message);
+
+    this.focusToLogTable();
+  }
+
+  onFilterRemoved(filterName, onFilterRemoveSucceed) {
+    const config = new Config();
+    config.removeFilter(filterName, () => {
+      onFilterRemoveSucceed(filterName);
+    });
+  }
+
 
  /* ===========================================================================
-  From Pane
+  From LogTable
   ============================================================================*/
   onDrop(event) {
     if (this.header.state.isStarted) {

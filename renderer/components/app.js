@@ -5,6 +5,7 @@ import Header from './header';
 import Pane from './pane';
 import LogTable from './logtable';
 import {dispatcher} from '../dispatcher';
+import '../../vendor/bootstrap/css/bootstrap.min.css';
 import './styles/app.css';
 
 class App extends React.Component {

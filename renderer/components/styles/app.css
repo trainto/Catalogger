@@ -1,11 +1,28 @@
 html, body {
   height: 100%;
+  color: #333;
 }
 
 body {
   margin: 0;
   overflow: hidden;
 }
+
+button:focus {
+  outline: 0 !important;
+}
+
+/*.btn-link {*/
+  /*color: #333 !important;*/
+/*}*/
+
+/*.btn-green {*/
+  /*color: green !important;*/
+/*}*/
+
+/*.btn-red {*/
+  /*color: red !important;*/
+/*}*/
 
 #app {
   height: 100%;

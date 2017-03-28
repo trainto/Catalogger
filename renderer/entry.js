@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
 import {dispatcher} from './dispatcher';
-import '../vendor/bootstrap/css/bootstrap.min.css';
 
 (function () {
   ReactDOM.render(<App />, document.getElementById('app'));
