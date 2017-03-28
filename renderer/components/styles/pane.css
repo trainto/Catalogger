@@ -8,6 +8,18 @@
   padding-top: 1px;
 }
 
+#pane .btn-link {
+  color: #333 !important;
+}
+
+#pane .btn-remove:hover {
+  color: red !important;
+}
+
+#pane .btn-add:hover {
+  color: green !important;
+}
+
 #filter-level {
   padding-left: 10px;
   -webkit-user-select: none;
@@ -21,6 +33,39 @@
 #filter-other .input-group-addon {
   font-family: menlo, "DejaVu Sans Mono", "Lucida Console", monospace;
   font-size: 11px;
+}
+
+#add-filter .btn {
+  float: right;
+  padding: 5px 3px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+#filter-list {
+  overflow-y: scroll;
+  width: 190px;
+  height: calc(100% - 380px);
+  padding-top: 10px;
+}
+
+#filter-list > ul {
+  padding-left: 10px;
+}
+
+#filter-list > ul > div > .btn {
+  padding: 2px 12px;
+}
+
+#filter-list .btn-remove-filter {
+  float: right;
 }
 
 .checkbox+.checkbox {
