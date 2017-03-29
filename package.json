@@ -17,7 +17,7 @@
     "dist": "webpack && build"
   },
   "build": {
-    "appId": "me.yoursun.catalogger",
+    "appId": "me.yoursun.Catalogger",
     "asar": false,
     "files": [
       "app/**/*",
@@ -25,6 +25,15 @@
     ],
     "mac": {
       "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "nsis"
     }
   },
   "dependencies": {
