@@ -83,7 +83,7 @@ class Dispatcher {
     logFileParser.parseFile(file, (result) => {
       dataWrapper.setData(result);
       this.logTable.resetData.call(this.logTable);
-      this.header.setRowsNumber.call(this.header, result.length);
+      this.header.setRowsNumber.call(this.header, dataWrapper.getSize());
     });
   }
 

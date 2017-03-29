@@ -34,6 +34,7 @@ class DataWrapper {
 
   setData(newData) {
     this.data = newData;
+    filter.rebuildIndexMap(newData);
   }
 
   push(rows) {

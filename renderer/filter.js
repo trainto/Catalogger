@@ -33,6 +33,11 @@ class Filter {
     this.indexMap = [];
   }
 
+  rebuildIndexMap(data) {
+    this.indexMap = [];
+    this.addRowsIfNeeded(0, data);
+  }
+
   _updateFilterState(filterBy) {
     filterBy.forEach((val, key) => {
       if (key === 'level') {
@@ -59,11 +64,8 @@ class Filter {
     this._updateFilterState(filterBy);
     clearTimeout(this._filterTimer);
     this._filterTimer = setTimeout(() => {
-      // if (this.filterOn) {
-      this.indexMap = [];
-      this.addRowsIfNeeded(0, data);
+      this.rebuildIndexMap(data);
       callback();
-      // }
     }, 1500);
   }
 
