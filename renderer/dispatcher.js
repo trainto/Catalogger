@@ -107,11 +107,22 @@ class Dispatcher {
 
   showErrDialog(msg) {
     const {dialog} = require('electron').remote;
-    dialog.showMessageBox({
+    dialog.showMessageBox(require('electron').remote.getCurrentWindow(), {
       type: 'error',
       title: 'Error',
       message: msg,
     });
+  }
+
+  showConfirmDialog(msg, callback) {
+    const {dialog} = require('electron').remote;
+    dialog.showMessageBox(require('electron').remote.getCurrentWindow(), {
+      type: 'question',
+      title: '',
+      message: msg,
+      buttons: ['OK', 'cancel'],
+      cancelId: 1
+    }, callback);
   }
 
 
@@ -250,10 +261,16 @@ class Dispatcher {
   }
 
   onFilterRemoved(filterName, onFilterRemoveSucceed) {
-    const config = new Config();
-    config.removeFilter(filterName, () => {
-      onFilterRemoveSucceed(filterName);
-    });
+    this.showConfirmDialog('Sure to delete "' + filterName +'" filter-set?',
+      (response) => {
+        if (response === 0) {
+          const config = new Config();
+          config.removeFilter(filterName, () => {
+            onFilterRemoveSucceed(filterName);
+          });
+        }
+      }
+    );
   }
 
 
