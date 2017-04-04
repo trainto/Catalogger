@@ -15,7 +15,7 @@ function startLogcat(device) {
     adbPath = path.join(adbPath, 'darwin');
   }
   // require('child_process').exec('adb', ['-s', device, 'logcat', '-c']);
-  logcat = spawn(adbPath + '/adb', ['-s', device, 'logcat']);
+  logcat = spawn(adbPath + '/adb', ['-s', device, 'logcat', '-v', 'threadtime']);
   logcat.on('error', (err) => {
     console.log('adblogcatparser.js: ' + 'err - ' + err);
   });
